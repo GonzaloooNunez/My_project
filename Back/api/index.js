@@ -1,9 +1,14 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const router = require("./routes/routes");
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
 const port = process.env.PORT || 3000;
 
 const userRoutes = require("./routes/userRoutes");
@@ -16,9 +21,8 @@ connectDB();
 app.use(express.json());
 
 // usar rutas
-
 app.use("/", router);
-app.use("/user", userRoutes); //Todos lo de este router lleva /user antes en la url /user/signup, /user/login
+app.use("/user", userRoutes);
 app.use("/games", gamesRoutes);
 
 // Iniciar servidor

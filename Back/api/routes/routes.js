@@ -6,37 +6,6 @@ const { isAdmin, isUser } = require("../middlewares/authorization.js");
 
 const router = express.Router();
 
-// Ruta para obtener games
-router.get("/games", isAdmin, async (req, res) => {
-  try {
-    const games = await Game.find();
-    res.json(games);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// Ruta para crear un game
-//router.post("/games", GameController.create)
-
-router.post("/games", async (req, res) => {
-  const game = new Game({
-    nombre: req.body.nombre,
-    categoria: req.body.categoria,
-    precio: req.body.precio,
-    stock: req.body.stock,
-    fecha_creacion: req.body.fecha_creacion,
-    imagen: req.body.imagen,
-  });
-
-  try {
-    const nuevoGame = await game.save();
-    res.status(201).json(nuevoGame);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
 // Ruta para obtener todos los usuarios
 router.get("/usuarios", async (req, res) => {
   try {

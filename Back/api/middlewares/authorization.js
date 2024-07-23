@@ -32,4 +32,4 @@ const isAdmin = (req, res, next) => {
   next();
 };
 
-module.exports = { isAdmin, isUser };
+module.exports = { isAdmin, isUser, isLogged };

@@ -1,25 +1,25 @@
-# Tienda de ropa
+# Tienda de juegos
 
-Vamos a montar una tienda de ropa con un catálogo de productos y un dashboard para el administrador. Los productos se guardarán en una base de datos de mongo en Atlas. Podemos usar como referencia el pdf [web_ejemplo.pdf](web_ejemplo.pdf) que contiene un ejemplo de cómo podría ser la interfaz de la tienda y el dashboard.
+/\*Vamos a montar una tienda de ropa con un catálogo de productos y un dashboard para el administrador. Los productos se guardarán en una base de datos de mongo en Atlas. Podemos usar como referencia el pdf [web_ejemplo.pdf](web_ejemplo.pdf) que contiene un ejemplo de cómo podría ser la interfaz de la tienda y el dashboard.
 
 ## Índice
 
-  - [Estructura de archivos](#estructura-de-archivos)
-  - [Creación de base de datos](#creación-de-base-de-datos)
-  - [Creación del servidor](#creación-del-servidor)
-  - [Creación de modelos](#creación-de-modelos)
-  - [Creación de rutas](#creación-de-rutas)
-  - [Creación de controladores](#creación-de-controladores)
-  - [Despliegue](#despliegue)
-  - [Documentación](#documentación)
-  - [Bonus 1 - Tests](#bonus-1---tests)
-  - [Bonus 2 - Autenticación con Firebase](#bonus-2---autenticación-con-firebase)
-  - [Bonus 3 - API y documentación con Swagger](#bonus-3---api-y-documentación-con-swagger)
-  - [Recursos](#recursos)
+- [Estructura de archivos](#estructura-de-archivos)
+- [Creación de base de datos](#creación-de-base-de-datos)
+- [Creación del servidor](#creación-del-servidor)
+- [Creación de modelos](#creación-de-modelos)
+- [Creación de rutas](#creación-de-rutas)
+- [Creación de controladores](#creación-de-controladores)
+- [Despliegue](#despliegue)
+- [Documentación](#documentación)
+- [Bonus 1 - Tests](#bonus-1---tests)
+- [Bonus 2 - Autenticación con Firebase](#bonus-2---autenticación-con-firebase)
+- [Bonus 3 - API y documentación con Swagger](#bonus-3---api-y-documentación-con-swagger)
+- [Recursos](#recursos)
 
 ## Estructura de archivos
 
-Vamos a crear la estructura de archivos que vamos a necesitar para el proyecto. 
+Vamos a crear la estructura de archivos que vamos a necesitar para el proyecto.
 
 ```
 .
@@ -61,6 +61,7 @@ Vamos a crear la estructura de archivos que vamos a necesitar para el proyecto.
 - `package.json`: Archivo que contendrá las dependencias del proyecto. Crearemos un script para iniciar el servidor con node y otro para iniciar el servidor con nodemon.("start": "node src/index.js", "dev": "nodemon src/index.js").
 
 **BONUS**
+
 - `config/firebase.js`: Archivo que contendrá la configuración de firebase. Deberá inicializar la conexión con firebase.
 - `controllers/authController.js`: Archivo que contendrá la lógica para manejar las solicitudes de autenticación. Devolverá las respuestas en formato HTML.
 - `routes/authRoutes.js`: Archivo que contendrá la definición de las rutas para la autenticación. Este llama a los métodos del controlador.
@@ -70,7 +71,8 @@ Vamos a crear la estructura de archivos que vamos a necesitar para el proyecto.
 
 Vamos a crear la base de datos en Atlas. Creamos un nuevo proyecto y lo desplegamos.
 
-Una vez creada la base de datos, copiamos la uri y la guardamos en el archivo .env 
+Una vez creada la base de datos, copiamos la uri y la guardamos en el archivo .env
+
 ```
 MONGO_URI=<uri_bd_atlas>
 ```
@@ -83,8 +85,7 @@ Para poder añadir estilos, imágenes, etc. necesitaremos el middleware `express
 
 El puerto en el que escuchará el servidor lo cargaremos desde el archivo .env usando `dotenv`.
 
-
-Creamos el archivo `index.js` en la carpeta `src` y añadimos el código necesario para crear el servidor. 
+Creamos el archivo `index.js` en la carpeta `src` y añadimos el código necesario para crear el servidor.
 
 ## Creación de modelo
 
@@ -101,11 +102,10 @@ La categoría será un string que podrá ser "Camisetas", "Pantalones", "Zapatos
 
 La talla será un string que podrá ser "XS", "S", "M", "L", "XL".
 
-
 ## Creación de rutas
 
 Vamos a crear las rutas CRUD para los productos. Al usar formularios html, las rutas serán de tipo GET y POST.
- Las rutas deberían tener una estructura similar a esta:
+Las rutas deberían tener una estructura similar a esta:
 
 - GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 - GET /products/:productId: Devuelve el detalle de un producto.
@@ -136,6 +136,7 @@ Las funciones showProducts y showProductById pueden devolver respuestas ligerame
 
 Para generar el html de forma más eficiente y sacarlo de la lógica, podemos crear funciones y variables auxiliares que generen el html de los productos y del formulario.
 Por ejemplo:
+
 - baseHtml: html común a todas las páginas. Puede contener elementos como la importación de estilos, etc.
 - getNavBar: Genera la barra de navegación con las categorías. En caso de estar en el dashboard, también generará un enlace para subir un nuevo producto.
 - getProductCards: Genera el html de los productos. Recibe un array de productos y devuelve el html de las tarjetas de los productos.
@@ -145,7 +146,7 @@ Un ejemplo de una función para generar el html de los productos podría ser:
 
 ```javascript
 function getProductCards(products) {
-  let html = '';
+  let html = "";
   for (let product of products) {
     html += `
       <div class="product-card">
@@ -165,14 +166,12 @@ Con estas funciones auxiliares, el controlador será más limpio y fácil de ent
 Ejemplo:
 
 ```javascript
-
 const showProducts = async (req, res) => {
   const products = await Product.find();
   const productCards = getProductCards(products);
   const html = baseHtml + getNavBar() + productCards;
   res.send(html);
 };
-    
 ```
 
 ## Despliegue
@@ -199,8 +198,6 @@ Una vez configurado el proyecto en firebase, podremos crear un formulario de log
 
 Para comprobar si las credenciales son correctas, necesitaremos el middleware `express-session` para guardar la sesión del usuario. Tendremos que modificar el archivo index.js para que inicialice el middleware y lo use en las rutas del dashboard. También tendremos que añadir una palabra secreta para la sesión en el archivo .env y crear un archivo `middlewares/authMiddleware.js` que contenga el middleware para comprobar si el usuario está autenticado. Este buscará la sesión del usuario y, si no la encuentra, redirigirá al formulario de login.
 
-
-
 ## Recursos
 
 - [Express](https://expressjs.com/)
@@ -216,5 +213,3 @@ Para comprobar si las credenciales son correctas, necesitaremos el middleware `e
 - [Firebase](https://firebase.google.com/)
   - [Firebase Auth](https://firebase.google.com/docs/auth)
   - [Get Started with Firebase Authentication on Websites](https://firebase.google.com/docs/auth/web/start)
-
-
