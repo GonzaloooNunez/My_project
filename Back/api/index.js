@@ -6,9 +6,15 @@ const connectDB = require("./config/db");
 const router = require("./routes/routes");
 
 const app = express();
-app.use(cors());
-app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:7000", // Cambia esto por la URL de tu frontend
+    credentials: true, // Permite el envío de cookies
+  })
+);
+app.use(express.json());
+
 const port = process.env.PORT || 3000;
 
 const userRoutes = require("./routes/userRoutes");
