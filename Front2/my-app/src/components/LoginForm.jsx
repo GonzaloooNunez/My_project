@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../Api";
 
 const LoginForm = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
-  const navigate = useNavigate(); // Crea una instancia de navigate
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,13 +16,26 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await loginUser(form);
-      setMessage("Usuario logueado exitosamente");
-      console.log(response.data.token); // Aquí puedes guardar el token en el localStorage o en un contexto de autenticación
-      navigate("/user-logged"); // Redirige a la página principal
+      const { userId, token, message } = response.data;
+
+      if (userId) {
+        // Almacena el token y el userId en el localStorage (opcional)
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("token", token);
+
+        // Redirige al perfil del usuario
+        navigate(`/user-logged`);
+      } else {
+        setMessage("No se pudo obtener el ID del usuario.");
+      }
     } catch (error) {
-      setMessage("Error al loguear usuario");
+      setMessage(
+        "Error al loguear usuario: " +
+          (error.response?.data?.message || error.message)
+      );
     }
   };
+
   const handleGoHome = () => {
     navigate("/");
   };

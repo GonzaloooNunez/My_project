@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchGames, fetchUserById } from "../Api";
+import { fetchGames } from "../Api";
 
 const UserLogedPage = () => {
   const [games, setGames] = useState([]);
-  const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  // Recupera el userId desde el localStorage
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const getGames = async () => {
@@ -21,32 +23,12 @@ const UserLogedPage = () => {
     getGames();
   }, []);
 
-  useEffect(() => {
-    const getUserById = async () => {
-      try {
-        const userId = 1; // Reemplaza esto con la lógica para obtener el userId, si es necesario.
-        const response = await fetchUserById(userId);
-        setUser(response.data);
-      } catch (error) {
-        setError("Error fetching user id");
-        console.error("Error fetching user id:", error);
-      }
-    };
-    getUserById();
-  }, []);
-
-  const handleProfileClick = () => {
-    if (user) {
-      navigate(`/user-profile/${user.id}`);
-    } else {
-      setError("User not found");
-    }
-  };
-
   return (
     <div>
       <div>
-        <button onClick={handleProfileClick}>Perfil</button>
+        <button onClick={() => navigate(`/user-profile/${userId}`)}>
+          Perfil
+        </button>{" "}
         <button onClick={() => alert("Botón 2 clickeado")}>Carrito</button>
       </div>
       <h1>Game List</h1>

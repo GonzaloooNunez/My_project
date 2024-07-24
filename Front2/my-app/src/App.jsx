@@ -6,6 +6,7 @@ import SignupPage from "./pages/SignupPage";
 import GameDetailPage from "./pages/GameDetailPage";
 import UserLogedPage from "./pages/UserLogedPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import UsersProfile from "./pages/UsersProfile"; // Ruta corregida
 import "./App.css";
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
           <Route path="/games/:gameId" element={<GameDetailPage />} />
           <Route path="/user-logged" element={<UserLogedPage />} />
           <Route path="/user-profile/:userId" element={<UserProfilePage />} />
+          <Route path="/users" element={<UsersProfile />} /> /*simplemente para
+          ver los ID se puede prescindir*/
         </Routes>
       </div>
     </Router>

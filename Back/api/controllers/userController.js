@@ -54,7 +54,6 @@ const login = async (req, res) => {
       throw new Error(`El usuario con email ${email} no existe`);
     }
 
-    // Compara la contraseña proporcionada con la almacenada en la base de datos
     const validPassword = bcrypt.compareSync(password, user.password);
     if (!validPassword) {
       throw new Error("La contraseña es incorrecta");
@@ -74,7 +73,11 @@ const login = async (req, res) => {
       sameSite: "None",
     });
 
-    res.status(200).json({ message: "Inicio de sesión exitoso" });
+    res.status(200).json({
+      message: "Inicio de sesión exitoso",
+      userId: user._id,
+      token: token,
+    });
   } catch (error) {
     console.error(`[${error.name}]: ${error.message} - ${error.stack}`);
     res.status(400).json({ message: error.message });
@@ -94,4 +97,29 @@ const findOneById = async (req, res) => {
   }
 };
 
-module.exports = { signup, login, findOneById };
+// Actualizar un usuario por ID
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nombre, email, password } = req.body;
+
+    // Verifica si el usuario existe
+    const user = await Usuario.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    // Actualiza la información del usuario
+    if (nombre) user.nombre = nombre;
+    if (email) user.email = email;
+    if (password) user.password = bcrypt.hashSync(password, SALT_ROUNDS);
+
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } catch (error) {
+    console.error(`[${error.name}]: ${error.message} - ${error.stack}`);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+module.exports = { signup, login, findOneById, updateUser };

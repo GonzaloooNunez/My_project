@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { fetchUserById } from "../Api"; // Asegúrate de que la ruta sea correcta
+import { useParams, useNavigate } from "react-router-dom";
+import { fetchUserById, updateUser } from "../Api";
 
 const UserProfile = () => {
   const { userId } = useParams(); // Usando parámetros de ruta para obtener el ID del usuario
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
+  const [editing, setEditing] = useState(false);
+  const [form, setForm] = useState({ nombre: "", email: "" });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await fetchUserById(userId);
         setUser(response.data);
+        setForm({
+          nombre: response.data.nombre || "",
+          email: response.data.email || "",
+        });
       } catch (error) {
         setError("Error fetching user data");
         console.error("Error fetching user data:", error);
@@ -21,28 +28,82 @@ const UserProfile = () => {
     fetchUserData();
   }, [userId]);
 
+  const handleEditClick = () => {
+    setEditing(!editing);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateUser(userId, form);
+      setUser({ ...user, ...form });
+      setEditing(false);
+    } catch (error) {
+      setError("Error updating user data");
+      console.error("Error updating user data:", error);
+    }
+  };
+
   if (error) return <p>{error}</p>;
   if (!user) return <p>Loading...</p>;
 
   return (
     <div>
+      <button onClick={() => navigate("/user-logged")}>Home</button>
+
       <h1>Profile</h1>
-      <p>
-        <strong>ID:</strong> {user._id}
-      </p>
-      <p>
-        <strong>Nombre:</strong> {user.nombre}
-      </p>
-      <p>
-        <strong>Email:</strong> {user.email}
-      </p>
-      <p>
-        <strong>Role:</strong> {user.role}
-      </p>
-      <p>
-        <strong>Fecha de Creación:</strong>{" "}
-        {new Date(user.fecha_creacion).toLocaleDateString()}
-      </p>
+      {editing ? (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="nombre">Nombre:</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              value={form.nombre}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit">Guardar</button>
+          <button type="button" onClick={handleEditClick}>
+            Cancelar
+          </button>
+        </form>
+      ) : (
+        <div>
+          <p>
+            <strong>Nombre:</strong> {user.nombre}
+          </p>
+          <p>
+            <strong>Email:</strong> {user.email}
+          </p>
+          <p>
+            <strong>{user.role}</strong>
+          </p>
+          <p>
+            <strong>Fecha de Creación:</strong>{" "}
+            {new Date(user.fecha_creacion).toLocaleDateString()}
+          </p>
+          <button onClick={handleEditClick}>Editar</button>
+        </div>
+      )}
     </div>
   );
 };

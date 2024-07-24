@@ -15,5 +15,8 @@ export const loginUser = (userData) =>
   api.post("/user/login", userData, { withCredentials: true });
 export const fetchUserById = (id) =>
   api.get(`/user/${id}`, { withCredentials: true });
+export const fetchAllUsers = () =>
+  api.get("/usuarios", { withCredentials: true });
+export const updateUser = (id, userData) => api.put(`/user/${id}`, userData);
 
 export default api;
