@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { signupUser } from "../Api";
 
 const SignupForm = () => {
@@ -9,6 +10,7 @@ const SignupForm = () => {
     role: "",
   });
   const [message, setMessage] = useState("");
+  const navigate = useNavigate(); // Hook para la navegación
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +22,9 @@ const SignupForm = () => {
     try {
       await signupUser(form);
       setMessage("Usuario registrado exitosamente");
+      setTimeout(() => {
+        navigate("/user-logged");
+      }, 4000); // Esperar 2 segundos antes de redireccionar
     } catch (error) {
       setMessage("Error al registrar usuario");
     }
@@ -51,7 +56,6 @@ const SignupForm = () => {
         onChange={handleChange}
         required
       />
-
       <input
         type="text"
         name="role"
@@ -60,7 +64,6 @@ const SignupForm = () => {
         onChange={handleChange}
         required
       />
-
       <button type="submit">Sign Up</button>
       {message && <p>{message}</p>}
     </form>
@@ -68,12 +71,3 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
-
-/*<input
-        type="text"
-        name="role"
-        placeholder="Role"
-        value={form.role}
-        onChange={handleChange}
-        required
-      />*/

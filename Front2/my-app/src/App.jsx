@@ -7,7 +7,7 @@ import GameDetailPage from "./pages/GameDetailPage";
 import UserLogedPage from "./pages/UserLogedPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import UsersProfile from "./pages/UsersProfile"; // Ruta corregida
-import "./App.css";
+import "./styles/App.css";
 
 function App() {
   return (

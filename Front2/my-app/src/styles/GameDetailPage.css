@@ -1,0 +1,26 @@
+.game-detail-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.game-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.game-info img {
+  max-width: 150px;
+  height: auto;
+  object-fit: cover;
+}
+
+.game-info .game-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-description {
+  margin-top: 20px;
+}

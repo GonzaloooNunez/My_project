@@ -1,0 +1,23 @@
+import React from "react";
+
+const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
+  return (
+    <div className="filter-container">
+      <label htmlFor="category-select">Categoría:</label>
+      <select
+        id="category-select"
+        value={selectedCategory}
+        onChange={onCategoryChange}
+      >
+        <option value="">Todas</option>
+        {categories.map((category) => (
+          <option key={category} value={category}>
+            {category}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+export default CategoryFilter;

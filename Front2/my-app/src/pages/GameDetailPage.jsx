@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGameById } from "../Api";
+import "../styles/GameDetailPage.css"; // Importa el CSS aquí
 
 const GameDetailPage = () => {
   const { gameId } = useParams();
@@ -29,13 +30,19 @@ const GameDetailPage = () => {
   }
 
   return (
-    <div>
-      <h2>{game.nombre}</h2>
-      <p>Categoría: {game.categoria}</p>
-      <p>Precio: {game.precio}</p>
-      <p>Stock: {game.stock}</p>
-      <img src={game.imagen} alt={game.nombre} width="100" />
-      <p>Acerca del juego: {game.description}</p>
+    <div className="game-detail-container">
+      <div className="game-info">
+        <img src={game.imagen} alt={game.nombre} />
+        <div className="game-details">
+          <h2>{game.nombre}</h2>
+          <p>Categoría: {game.categoria}</p>
+          <p>Precio: {game.precio}</p>
+          <p>Stock: {game.stock}</p>
+        </div>
+      </div>
+      <div className="game-description">
+        <p>Acerca del juego: {game.description}</p>
+      </div>
     </div>
   );
 };

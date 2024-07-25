@@ -1,0 +1,58 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espacio entre los botones */
+}
+.user-loged-page-container {
+  position: relative; /* Establece la posición relativa del contenedor principal */
+  padding: 20px; /* O cualquier otro estilo que necesites */
+}
+
+.profile-button,
+.cart-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex; /* Cambia a inline-flex para mantener el tamaño pequeño */
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-button img,
+.cart-button img {
+  width: 30px; /* Ajusta el tamaño de la imagen según tus necesidades */
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.category-filter {
+  top: 300px;
+}
+
+.user-category-filter {
+  position: flex;
+  top: 60px;
+  right: 1000px;
+  font-size: 16px;
+  margin-right: 10px;
+  color: #343a40; /* Color de texto para el label */
+}
+
+#category-select {
+  padding: 8px 12px; /* Espaciado interno del select */
+  font-size: 16px; /* Tamaño de fuente */
+  border: 1px solid #ced4da; /* Borde del select */
+  border-radius: 4px; /* Bordes redondeados para el select */
+  background-color: #ffffff; /* Fondo blanco para el select */
+  color: #495057; /* Color de texto dentro del select */
+  cursor: pointer; /* Cursor de mano cuando se pasa por encima */
+  transition: border-color 0.3s ease; /* Transición suave para el borde */
+}
+
+#category-select:focus {
+  outline: none; /* Elimina el outline predeterminado del navegador */
+  border-color: #80bdff; /* Borde azul claro al hacer foco */
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Sombra azul clara al hacer foco */
+}

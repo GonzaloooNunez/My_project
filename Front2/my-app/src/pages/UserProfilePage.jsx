@@ -7,7 +7,7 @@ const UserProfile = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [editing, setEditing] = useState(false);
-  const [form, setForm] = useState({ nombre: "", email: "" });
+  const [form, setForm] = useState({ nombre: "", email: "", password: "" });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const UserProfile = () => {
         setForm({
           nombre: response.data.nombre || "",
           email: response.data.email || "",
+          password: "", // Inicialmente vacío
         });
       } catch (error) {
         setError("Error fetching user data");
@@ -40,8 +41,14 @@ const UserProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateUser(userId, form);
-      setUser({ ...user, ...form });
+      // Crear un objeto que contenga solo los campos que han sido cambiados
+      const updatedUser = {
+        nombre: form.nombre,
+        email: form.email,
+        ...(form.password && { password: form.password }), // Solo incluir la contraseña si está presente
+      };
+      await updateUser(userId, updatedUser);
+      setUser({ ...user, ...updatedUser });
       setEditing(false);
     } catch (error) {
       setError("Error updating user data");
@@ -79,6 +86,17 @@ const UserProfile = () => {
               value={form.email}
               onChange={handleChange}
               required
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Nueva Contraseña:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              placeholder="Dejar vacío si no desea cambiar la contraseña"
             />
           </div>
           <button type="submit">Guardar</button>
