@@ -12,7 +12,9 @@ const GameItem = ({ game }) => {
         <div className="game-details">
           <h2>{game.nombre}</h2>
           <p className="categoria">{game.categoria}</p>
-          <p className="precio">{game.precio} €</p>
+          <p className="precio">
+            {game.precio === 0 ? "Gratis" : `${game.precio} €`}
+          </p>
         </div>
       </Link>
     </li>

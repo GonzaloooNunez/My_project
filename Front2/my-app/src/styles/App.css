@@ -16,16 +16,21 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: flex-end; /* Alinea los enlaces a la derecha */
   gap: 1rem;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
+  padding: 0.5rem 1rem; /* Añade relleno para un aspecto de botón */
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  background-color: #333; /* Añade un color de fondo al pasar el cursor */
+  color: #fff;
 }
 
 .container {

@@ -1,11 +1,12 @@
+.user-loged-page-container {
+  position: relative;
+  padding: 20px;
+}
+
 .navigation {
   display: flex;
   align-items: center;
-  gap: 20px; /* Espacio entre los botones */
-}
-.user-loged-page-container {
-  position: relative; /* Establece la posición relativa del contenedor principal */
-  padding: 20px; /* O cualquier otro estilo que necesites */
+  gap: 20px;
 }
 
 .profile-button,
@@ -14,45 +15,62 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  display: inline-flex; /* Cambia a inline-flex para mantener el tamaño pequeño */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .profile-button img,
 .cart-button img {
-  width: 30px; /* Ajusta el tamaño de la imagen según tus necesidades */
+  width: 30px;
   height: 30px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.category-filter {
-  top: 300px;
+.homepage-titulo {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(45deg, #ffffff, #f70358);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 10px;
+  border-radius: 8px;
 }
 
-.user-category-filter {
-  position: flex;
-  top: 60px;
-  right: 1000px;
-  font-size: 16px;
-  margin-right: 10px;
-  color: #343a40; /* Color de texto para el label */
+.user-category-filter-custom #category-select {
+  margin-top: 10px;
+  padding: 4px 12px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #495057;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
 }
 
-#category-select {
-  padding: 8px 12px; /* Espaciado interno del select */
-  font-size: 16px; /* Tamaño de fuente */
-  border: 1px solid #ced4da; /* Borde del select */
-  border-radius: 4px; /* Bordes redondeados para el select */
-  background-color: #ffffff; /* Fondo blanco para el select */
-  color: #495057; /* Color de texto dentro del select */
-  cursor: pointer; /* Cursor de mano cuando se pasa por encima */
-  transition: border-color 0.3s ease; /* Transición suave para el borde */
+.user-category-filter-custom #category-select:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
 }
 
-#category-select:focus {
-  outline: none; /* Elimina el outline predeterminado del navegador */
-  border-color: #80bdff; /* Borde azul claro al hacer foco */
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Sombra azul clara al hacer foco */
+.user-filter-container {
+  margin-top: 8px; /* Ajusta el margen superior para bajar el filtro de búsqueda */
+  margin-bottom: 10px; /* Ajusta el margen inferior si es necesario */
+  display: flex;
+  gap: 20px; /* Espacio entre el filtro de categorías y la barra de búsqueda */
+}
+
+.game-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }

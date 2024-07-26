@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/ListGames.css"; // Asegúrate de incluir el CSS si es necesario
 
 const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
   return (
@@ -10,6 +11,7 @@ const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
         onChange={onCategoryChange}
       >
         <option value="">Todas</option>
+        <option value="gratis">Gratis</option>
         {categories.map((category) => (
           <option key={category} value={category}>
             {category}

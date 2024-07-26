@@ -1,60 +1,55 @@
-/* ListGames.css */
 .homepage-container {
   padding: 20px;
-  position: relative; /* Necesario para posicionar el filtro correctamente dentro del contenedor */
+  position: relative;
 }
 
 .homepage-titulo {
-  color: #fff; /* Texto blanco */
-  font-size: 2.5em; /* Tamaño de fuente grande para destacar */
-  font-weight: bold; /* Fuente en negrita */
-  text-align: center; /* Centra el texto */
-  margin-bottom: 20px; /* Espacio debajo del título */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para un efecto de profundidad */
-  background: linear-gradient(
-    45deg,
-    #ffffff,
-    #f70358
-  ); /* Gradiente de fondo colorido */
-  -webkit-background-clip: text; /* Asegura que el gradiente se aplique solo al texto */
-  -webkit-text-fill-color: transparent; /* Hace que el color de fondo del texto sea transparente */
-  padding: 10px; /* Espacio alrededor del texto */
-  border-radius: 8px; /* Bordes redondeados para un efecto de botón */
+  color: #fff;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(45deg, #ffffff, #f70358);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .filter-container {
-  position: absolute; /* Posiciona el contenedor de filtro en una ubicación específica dentro del contenedor principal */
-  top: 40px; /* Espacio desde la parte superior del contenedor */
-  right: 20px; /* Espacio desde el borde derecho del contenedor */
-  background-color: #f8f9fa; /* Fondo claro para el filtro */
-  border: 1px solid #dee2e6; /* Borde sutil */
-  border-radius: 4px; /* Bordes redondeados */
-  padding: 10px 15px; /* Espaciado interno */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar el filtro */
-  z-index: 10; /* Asegura que el filtro esté sobre otros elementos */
+  position: absolute;
+  top: 147px;
+  right: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 16px 17px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
 
 .filter-container label {
   font-size: 16px;
   margin-right: 10px;
-  color: #343a40; /* Color de texto para el label */
+  color: #343a40;
 }
 
 #category-select {
-  padding: 8px 12px; /* Espaciado interno del select */
-  font-size: 16px; /* Tamaño de fuente */
-  border: 1px solid #ced4da; /* Borde del select */
-  border-radius: 4px; /* Bordes redondeados para el select */
-  background-color: #ffffff; /* Fondo blanco para el select */
-  color: #495057; /* Color de texto dentro del select */
-  cursor: pointer; /* Cursor de mano cuando se pasa por encima */
-  transition: border-color 0.3s ease; /* Transición suave para el borde */
+  padding: 1px 12px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #495057;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
 }
 
 #category-select:focus {
-  outline: none; /* Elimina el outline predeterminado del navegador */
-  border-color: #80bdff; /* Borde azul claro al hacer foco */
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Sombra azul clara al hacer foco */
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
 }
 
 .game-list {
@@ -79,22 +74,22 @@
 }
 
 .game-item a {
-  text-decoration: none; /* Elimina el subrayado de los enlaces */
-  color: inherit; /* Hereda el color del texto del contenedor */
+  text-decoration: none;
+  color: inherit;
 }
 
 .image-container {
   width: 100%;
-  height: 200px; /* Establece una altura fija */
+  height: 200px;
   overflow: hidden;
-  display: flex; /* Usamos flexbox para alinear la imagen */
-  justify-content: center; /* Centra la imagen horizontalmente */
+  display: flex;
+  justify-content: center;
 }
 
 .image-container img {
-  width: auto; /* Permite que la imagen ajuste su ancho */
-  height: 100%; /* Asegura que la imagen llene la altura del contenedor */
-  object-fit: cover; /* Llena el contenedor sin dejar espacios vacíos y recorta la imagen si es necesario */
+  width: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .game-details {
@@ -111,9 +106,43 @@
 }
 
 .game-details .categoria {
-  margin-bottom: 10px; /* Ajusta el margen debajo de la categoría */
+  margin-bottom: 10px;
 }
 
 .game-details .precio {
-  margin-top: 10px; /* Ajusta el margen encima del precio */
+  margin-top: 10px;
+}
+.filter-search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.filter-container {
+  margin-bottom: 20px; /* Ajusta según sea necesario */
+}
+
+.search-container {
+  margin-top: 10px; /* Espacio entre el filtro de categorías y el campo de búsqueda */
+  width: 100%;
+  max-width: 400px; /* Ajusta el tamaño máximo del campo de búsqueda */
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #495057;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
 }

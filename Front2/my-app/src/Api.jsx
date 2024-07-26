@@ -28,5 +28,9 @@ export const fetchUserById = (id) =>
 export const fetchAllUsers = () =>
   api.get("/usuarios", { withCredentials: true });
 export const updateUser = (id, userData) => api.put(`/user/${id}`, userData);
+export const addRating = (gameId, rating) =>
+  api.post(`/games/${gameId}/rate`, { rating });
+export const addComment = (gameId, comment) =>
+  api.post(`/games/${gameId}/comment`, { comment });
 
 export default api;
