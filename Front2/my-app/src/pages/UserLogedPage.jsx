@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchGames } from "../Api";
 import GameItem from "../components/GameItem";
 import CategoryFilter from "../components/CategoryFilter";
-import SearchFilter from "../components/SearchFilter"; // Importa el componente SearchFilter
+import SearchFilter from "../components/SearchFilter";
 import "../styles/UserLogedPage.css";
 
 const UserLogedPage = () => {
@@ -12,7 +12,7 @@ const UserLogedPage = () => {
   const [error, setError] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para la búsqueda
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const userId = localStorage.getItem("userId");
@@ -102,7 +102,7 @@ const UserLogedPage = () => {
         {filteredGames.length > 0 ? (
           filteredGames.map((game) => <GameItem key={game._id} game={game} />)
         ) : (
-          <p>No games available.</p>
+          <p>No se han encontrado juegos.</p>
         )}
       </ul>
     </div>

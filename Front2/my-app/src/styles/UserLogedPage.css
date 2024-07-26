@@ -22,8 +22,8 @@
 
 .profile-button img,
 .cart-button img {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -32,18 +32,18 @@
   font-size: 2.5em;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   background: linear-gradient(45deg, #ffffff, #f70358);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding: 10px;
+  padding: 0px;
   border-radius: 8px;
 }
 
 .user-category-filter-custom #category-select {
   margin-top: 10px;
-  padding: 4px 12px;
+  padding: 0px 12px;
   font-size: 14px;
   border: 1px solid #ced4da;
   border-radius: 4px;
@@ -60,10 +60,10 @@
 }
 
 .user-filter-container {
-  margin-top: 8px; /* Ajusta el margen superior para bajar el filtro de búsqueda */
-  margin-bottom: 10px; /* Ajusta el margen inferior si es necesario */
+  margin-top: 8px;
+  margin-bottom: 10px;
   display: flex;
-  gap: 20px; /* Espacio entre el filtro de categorías y la barra de búsqueda */
+  gap: 20px;
 }
 
 .game-list {

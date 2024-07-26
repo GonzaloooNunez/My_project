@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { fetchUserById, updateUser } from "../Api";
 
 const UserProfile = () => {
-  const { userId } = useParams(); // Usando parámetros de ruta para obtener el ID del usuario
+  const { userId } = useParams();
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [editing, setEditing] = useState(false);

@@ -22,7 +22,7 @@ const HomePage = () => {
         const gameCategories = [
           ...new Set(response.data.map((game) => game.categoria)),
         ];
-        setCategories(gameCategories);
+        setCategories([...gameCategories, "gratis"]);
       } catch (error) {
         setError("Error fetching games");
         console.error("Error fetching games:", error);
@@ -34,7 +34,9 @@ const HomePage = () => {
   useEffect(() => {
     let updatedGames = games;
 
-    if (selectedCategory) {
+    if (selectedCategory === "gratis") {
+      updatedGames = updatedGames.filter((game) => game.precio === 0);
+    } else if (selectedCategory) {
       updatedGames = updatedGames.filter(
         (game) => game.categoria === selectedCategory
       );
@@ -84,6 +86,7 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
 /*import React, { useEffect, useState } from "react";
 import GameItem from "../components/GameItem";
 import CategoryFilter from "../components/CategoryFilter";

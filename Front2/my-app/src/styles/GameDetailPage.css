@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  position: relative; /* Necesario para el posicionamiento absoluto de los elementos hijos */
+  position: relative;
 }
 
 .game-info {
@@ -89,7 +89,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  position: absolute; /* Posiciona el contenedor en la esquina superior derecha */
+  position: absolute;
   top: 20px;
   right: 20px;
 }
@@ -139,19 +139,19 @@
 .back-button {
   width: 100px;
   margin-bottom: 20px;
-  padding: 8px 16px; /* Ajusta el padding según el tamaño deseado */
-  border: 1px solid #ccc; /* Borde gris claro */
+  padding: 8px 16px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #767777; /* Color de fondo gris claro */
-  color: #ffffff; /* Color del texto */
+  background-color: #767777;
+  color: #ffffff;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, border-color 0.3s ease;
-  display: inline; /* Cambia a inline para asegurar que solo ocupe el ancho necesario */
-  text-align: center; /* Alinea el texto en el centro */
+  display: inline;
+  text-align: center;
 }
 
 .back-button:hover {
-  background-color: #e0e0e0; /* Color de fondo gris oscuro al pasar el cursor */
-  border-color: #bbb; /* Color del borde gris más oscuro al pasar el cursor */
+  background-color: #0056b3;
+  border-color: #bbb;
 }

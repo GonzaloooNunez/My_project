@@ -19,7 +19,7 @@
 
 .filter-container {
   position: absolute;
-  top: 147px;
+  top: 107px;
   right: 20px;
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
@@ -112,6 +112,7 @@
 .game-details .precio {
   margin-top: 10px;
 }
+
 .filter-search-container {
   display: flex;
   flex-direction: column;
@@ -120,13 +121,14 @@
 }
 
 .filter-container {
-  margin-bottom: 20px; /* Ajusta según sea necesario */
+  margin-bottom: 10px;
 }
 
 .search-container {
-  margin-top: 10px; /* Espacio entre el filtro de categorías y el campo de búsqueda */
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
-  max-width: 400px; /* Ajusta el tamaño máximo del campo de búsqueda */
+  max-width: 400px;
 }
 
 .search-input {

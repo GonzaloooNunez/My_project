@@ -6,7 +6,7 @@ import "../styles/ListGames.css"; // Asegúrate de importar los estilos necesari
 const GameList = () => {
   const [games, setGames] = useState([]);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState(""); // Si no estás usando el filtro, puedes eliminar este estado
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     const fetchGames = async () => {

@@ -10,7 +10,7 @@ const SignupForm = () => {
     role: "",
   });
   const [message, setMessage] = useState("");
-  const navigate = useNavigate(); // Hook para la navegación
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +24,7 @@ const SignupForm = () => {
       setMessage("Usuario registrado exitosamente");
       setTimeout(() => {
         navigate("/user-logged");
-      }, 4000); // Esperar 2 segundos antes de redireccionar
+      }, 4000);
     } catch (error) {
       setMessage("Error al registrar usuario");
     }

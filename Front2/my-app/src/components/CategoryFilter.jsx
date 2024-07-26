@@ -1,6 +1,3 @@
-import React from "react";
-import "../styles/ListGames.css"; // Asegúrate de incluir el CSS si es necesario
-
 const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
   return (
     <div className="filter-container">

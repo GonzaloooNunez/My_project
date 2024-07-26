@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchGameById, addRating, addComment } from "../Api";
 import "../styles/GameDetailPage.css";
 
 const GameDetailPage = () => {
   const { gameId } = useParams();
-  const navigate = useNavigate(); // Usa el hook useNavigate para la navegación
+  const navigate = useNavigate();
   const [game, setGame] = useState(null);
   const [error, setError] = useState("");
   const [rating, setRating] = useState(0);
@@ -98,13 +98,25 @@ const GameDetailPage = () => {
         <img src={game.imagen} alt={game.nombre} />
         <div className="game-details">
           <h2>{game.nombre}</h2>
-          <p>Categoría: {game.categoria}</p>
-          <p>Precio: {game.precio}</p>
-          <p>Stock: {game.stock}</p>
+          <p>
+            <i>Categoría:</i> {game.categoria}
+          </p>
+          <p>
+            <i>Precio:</i> {game.precio} €
+          </p>
+          <p>
+            <i>Stock: </i>
+            {game.stock}
+          </p>
         </div>
       </div>
       <div className="game-description">
-        <p>Acerca del juego: {game.description}</p>
+        <p>
+          <strong>Acerca del juego: </strong>
+          <br></br>
+          <br></br>
+          {game.description}
+        </p>
       </div>
       {user && (
         <div className="rating-comment-section">
