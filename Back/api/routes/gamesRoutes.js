@@ -12,6 +12,7 @@ const {
 const {
   addRating,
   addComment,
+  deleteComment,
 } = require("../controllers/opinionGameController");
 
 router.get("/", findAll);
@@ -21,6 +22,7 @@ router.post("/createMany", isAdmin, createMany);
 router.delete("/:id", isAdmin, remove);
 router.put("/:id", isAdmin, update);
 router.post("/:id/rate", addRating);
-router.post("/:id/comment", addComment);
+router.post("/:id/comment", isUser, addComment);
+router.delete("/:id/comments/:commentId", isUser, deleteComment);
 
 module.exports = router;

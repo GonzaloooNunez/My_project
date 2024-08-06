@@ -10,17 +10,18 @@ const commentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: false,
-  }, //CAMBIAR A TRUE
+  },
   gameId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Game",
     required: false,
   },
   comment: { type: String, required: true },
+  userName: { type: String, required: false },
 });
 
 const gamesSchema = new mongoose.Schema({
-  nombre: { type: String, required: true },
+  name: { type: String, required: true },
   categoria: { type: String, required: true },
   precio: { type: Number, required: true },
   stock: { type: Number, required: true },

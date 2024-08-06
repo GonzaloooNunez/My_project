@@ -18,7 +18,7 @@ const update = async (req, res) => {
     const game = await Game.findById(req.params.id);
     if (!game) return res.status(404).json({ message: "Juego no encontrado" });
 
-    if (req.body.nombre != null) game.nombre = req.body.nombre;
+    if (req.body.name != null) game.name = req.body.name;
     if (req.body.categoria != null) game.categoria = req.body.categoria;
     if (req.body.precio != null) game.precio = req.body.precio;
     if (req.body.stock != null) game.stock = req.body.stock;
@@ -35,7 +35,7 @@ const update = async (req, res) => {
 
 const create = async (req, res) => {
   const game = new Game({
-    nombre: req.body.nombre,
+    name: req.body.name,
     categoria: req.body.categoria,
     precio: req.body.precio,
     stock: req.body.stock,

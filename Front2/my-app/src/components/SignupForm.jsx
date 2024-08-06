@@ -6,7 +6,7 @@ const SignupForm = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
-    nombre: "",
+    name: "",
     role: "",
   });
   const [message, setMessage] = useState("");
@@ -34,9 +34,9 @@ const SignupForm = () => {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        name="nombre"
-        placeholder="Nombre"
-        value={form.nombre}
+        name="name"
+        placeholder="name"
+        value={form.name}
         onChange={handleChange}
         required
       />

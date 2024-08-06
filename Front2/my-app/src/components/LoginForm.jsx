@@ -9,22 +9,21 @@ const LoginForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
+
     setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("antes");
       const response = await loginUser(form);
-      const { userId, token, message } = response.data;
-      console.log("despues");
+      const { token, user } = response.data;
 
-      if (userId) {
+      if (user) {
         // Almacena el token y el userId en el localStorage (opcional)
-        localStorage.setItem("userId", userId);
+        localStorage.setItem("userId", user.id);
         localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
 
         // Redirige al perfil del usuario
         navigate(`/user-logged`);

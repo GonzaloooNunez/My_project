@@ -30,7 +30,13 @@ export const fetchAllUsers = () =>
 export const updateUser = (id, userData) => api.put(`/user/${id}`, userData);
 export const addRating = (gameId, rating) =>
   api.post(`/games/${gameId}/rate`, { rating });
-export const addComment = (gameId, comment) =>
-  api.post(`/games/${gameId}/comment`, { comment });
+export const addComment = async (gameId, commentData) => {
+  const response = await api.post(`/games/${gameId}/comment`, commentData);
+  return response.data;
+};
+export const deleteComment = async (gameId, commentId) => {
+  const response = await api.delete(`/games/${gameId}/comments/${commentId}`);
+  return response.data;
+};
 
 export default api;

@@ -14,24 +14,26 @@ const isLogged = (req, res) => {
     const { name, message, stack } = error;
     console.error(`[${name}]: ${message} - ${stack}`);
     res.status(401).json({ message });
-    return null; // Asegúrate de no continuar si la verificación falla
+    return null;
   }
 };
 
 const isUser = (req, res, next) => {
   const user = isLogged(req, res);
-  if (!user) return; // Asegúrate de no continuar si la verificación falla
+
+  if (!user) return;
 
   if (user.role !== "User") {
     return res.status(403).json({ message: "El usuario no tiene permisos" });
   }
 
+  req.user = user;
   next();
 };
 
 const isAdmin = (req, res, next) => {
   const admin = isLogged(req, res);
-  if (!admin) return; // Asegúrate de no continuar si la verificación falla
+  if (!admin) return;
 
   if (admin.role !== "Admin") {
     return res

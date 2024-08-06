@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fetchUserById, updateUser } from "../Api";
 
 const UserProfile = () => {
-  const { userId } = useParams();
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [editing, setEditing] = useState(false);
@@ -12,6 +11,23 @@ const UserProfile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      // Recupera el user del localStorage
+      const storedUser = localStorage.getItem("user");
+
+      if (!storedUser) {
+        setError("User data not found in localStorage");
+        return;
+      }
+
+      // Parsea el JSON para obtener el objeto y el userId
+      const parsedUser = JSON.parse(storedUser);
+      const userId = parsedUser._id;
+
+      if (!userId) {
+        setError("User ID not found in localStorage");
+        return;
+      }
+
       try {
         const response = await fetchUserById(userId);
         setUser(response.data);
@@ -27,7 +43,7 @@ const UserProfile = () => {
     };
 
     fetchUserData();
-  }, [userId]);
+  }, []);
 
   const handleEditClick = () => {
     setEditing(!editing);
@@ -47,6 +63,13 @@ const UserProfile = () => {
         email: form.email,
         ...(form.password && { password: form.password }), // Solo incluir la contraseña si está presente
       };
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        setError("User data not found in localStorage");
+        return;
+      }
+      const parsedUser = JSON.parse(storedUser);
+      const userId = parsedUser._id;
       await updateUser(userId, updatedUser);
       setUser({ ...user, ...updatedUser });
       setEditing(false);
@@ -107,7 +130,7 @@ const UserProfile = () => {
       ) : (
         <div>
           <p>
-            <strong>Nombre:</strong> {user.nombre}
+            <strong>Nombre:</strong> {user.name}
           </p>
           <p>
             <strong>Email:</strong> {user.email}

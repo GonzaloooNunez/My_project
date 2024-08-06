@@ -29,7 +29,7 @@ router.get("/usuarios/:id", async (req, res) => {
 // Ruta para crear un usuario
 router.post("/usuarios", async (req, res) => {
   const usuario = new Usuario({
-    nombre: req.body.nombre,
+    name: req.body.name,
     email: req.body.email,
     password: req.body.password,
   });
@@ -44,7 +44,7 @@ router.post("/usuarios", async (req, res) => {
 // Ruta para crear un admin
 router.post("/admins", async (req, res) => {
   const admin = new Admin({
-    nombre: req.body.nombre,
+    name: req.body.name,
     email: req.body.email,
     password: req.body.password,
   });
@@ -63,7 +63,7 @@ router.put("/usuarios/:id", async (req, res) => {
     if (!usuario)
       return res.status(404).json({ message: "Usuario no encontrado" });
 
-    if (req.body.nombre) usuario.nombre = req.body.nombre;
+    if (req.body.name) usuario.name = req.body.name;
     if (req.body.email) usuario.email = req.body.email;
     if (req.body.password) usuario.password = req.body.password;
 

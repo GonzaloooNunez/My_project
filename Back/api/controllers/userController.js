@@ -7,9 +7,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // Registro de usuario
 const signup = async (req, res) => {
   try {
-    const { email, password, nombre, role } = req.body;
+    const { email, password, name, role } = req.body;
 
-    if (!email || !password || !nombre || !role) {
+    if (!email || !password || !name || !role) {
       throw new Error("Todos los campos son obligatorios");
     }
 
@@ -23,7 +23,7 @@ const signup = async (req, res) => {
 
     // Crea un nuevo usuario
     const usuario = new Usuario({
-      nombre,
+      name,
       email,
       password: hash,
       role,
@@ -63,7 +63,12 @@ const login = async (req, res) => {
 
     // Genera el token con el ID del usuario
     const token = jwt.sign(
-      { id: user._id, email: user.email, role: user.role },
+      {
+        name: user.name,
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      },
       JWT_SECRET,
       { expiresIn: "1d" }
     );
@@ -77,7 +82,7 @@ const login = async (req, res) => {
 
     res.status(200).json({
       message: "Inicio de sesión exitoso",
-      userId: user._id,
+      user,
       token: token,
     });
   } catch (error) {
@@ -103,7 +108,7 @@ const findOneById = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, email, password } = req.body;
+    const { name, email, password } = req.body;
 
     // Verifica si el usuario existe
     const user = await Usuario.findById(id);
@@ -112,7 +117,7 @@ const updateUser = async (req, res) => {
     }
 
     // Actualiza la información del usuario
-    if (nombre) user.nombre = nombre;
+    if (name) user.name = name;
     if (email) user.email = email;
     if (password) user.password = bcrypt.hashSync(password, SALT_ROUNDS);
 

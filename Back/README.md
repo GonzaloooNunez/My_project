@@ -91,7 +91,7 @@ Creamos el archivo `index.js` en la carpeta `src` y añadimos el código necesar
 
 Vamos a crear el modelo de producto. El modelo de producto tendrá los siguientes campos:
 
-- Nombre
+- name
 - Descripción
 - Imagen
 - Categoría
