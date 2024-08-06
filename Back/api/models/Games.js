@@ -6,8 +6,16 @@ const ratingSchema = new mongoose.Schema({
 });
 
 const commentSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  gameId: { type: mongoose.Schema.Types.ObjectId, ref: "Game", required: true },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: false,
+  }, //CAMBIAR A TRUE
+  gameId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Game",
+    required: false,
+  },
   comment: { type: String, required: true },
 });
 

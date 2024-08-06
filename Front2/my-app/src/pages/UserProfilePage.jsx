@@ -18,7 +18,7 @@ const UserProfile = () => {
         setForm({
           nombre: response.data.nombre || "",
           email: response.data.email || "",
-          password: "", // Inicialmente vacío
+          password: "",
         });
       } catch (error) {
         setError("Error fetching user data");

@@ -9,14 +9,17 @@ const LoginForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("antes");
       const response = await loginUser(form);
       const { userId, token, message } = response.data;
+      console.log("despues");
 
       if (userId) {
         // Almacena el token y el userId en el localStorage (opcional)

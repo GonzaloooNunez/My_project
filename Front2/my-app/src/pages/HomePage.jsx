@@ -61,7 +61,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      <h1 className="homepage-titulo">Tu tIendA dE Ju€go$</h1>
+      <h1 className="homepage-titulo">EL VICIOTE.COM</h1>
       {error && <p>{error}</p>}
       <div className="filter-search-container">
         <CategoryFilter

@@ -4,6 +4,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const router = require("./routes/routes");
+const userRoutes = require("./routes/userRoutes");
+const gamesRoutes = require("./routes/gamesRoutes");
 
 const app = express();
 app.use(cookieParser());
@@ -16,9 +18,6 @@ app.use(
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
-
-const userRoutes = require("./routes/userRoutes");
-const gamesRoutes = require("./routes/gamesRoutes");
 
 // Conectar a MongoDB
 connectDB();

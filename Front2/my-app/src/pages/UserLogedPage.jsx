@@ -83,7 +83,7 @@ const UserLogedPage = () => {
           />
         </button>
       </div>
-      <h1 className="homepage-titulo">Tu tIendA dE Ju€go$</h1>
+      <h1 className="homepage-titulo">EL VICIOTE.COM</h1>
       {error && <p>{error}</p>}
       <div className="user-filter-container">
         <div className="user-category-filter-custom">

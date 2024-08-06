@@ -19,14 +19,13 @@ const signup = async (req, res) => {
       throw new Error("El usuario ya existe");
     }
 
-    // Encripta la contraseña
-    const hashedPassword = bcrypt.hashSync(password, SALT_ROUNDS);
+    const hash = bcrypt.hashSync(password, SALT_ROUNDS);
 
     // Crea un nuevo usuario
     const usuario = new Usuario({
       nombre,
       email,
-      password: hashedPassword,
+      password: hash,
       role,
     });
 
@@ -50,13 +49,16 @@ const login = async (req, res) => {
 
     // Busca al usuario por email
     const user = await Usuario.findOne({ email });
+
     if (!user) {
-      throw new Error(`El usuario con email ${email} no existe`);
+      return res
+        .status(400)
+        .json({ message: `El usuario con email ${email} no existe` });
     }
 
     const validPassword = bcrypt.compareSync(password, user.password);
     if (!validPassword) {
-      throw new Error("La contraseña es incorrecta");
+      return res.status(400).json({ message: "La contraseña es incorrecta" });
     }
 
     // Genera el token con el ID del usuario
