@@ -11,7 +11,6 @@ const UserProfile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      // Recupera el user del localStorage
       const storedUser = localStorage.getItem("user");
 
       if (!storedUser) {
@@ -19,7 +18,6 @@ const UserProfile = () => {
         return;
       }
 
-      // Parsea el JSON para obtener el objeto y el userId
       const parsedUser = JSON.parse(storedUser);
       const userId = parsedUser._id;
 

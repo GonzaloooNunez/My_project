@@ -33,6 +33,12 @@ nav a:hover {
   color: #fff;
 }
 
+.nav-link:hover {
+  transform: scale(2);
+  color: #070707;
+  background-color: #e9ecef;
+}
+
 .container {
   max-width: 1500px;
   margin: 2rem auto;

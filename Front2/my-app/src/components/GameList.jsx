@@ -23,7 +23,7 @@ const GameList = () => {
 
   const filteredGames = games.filter(
     (game) =>
-      game.nombre.toLowerCase().includes(search.toLowerCase()) ||
+      game.name.toLowerCase().includes(search.toLowerCase()) ||
       game.categoria.toLowerCase().includes(search.toLowerCase()) ||
       game.fecha_creacion.includes(search)
   );

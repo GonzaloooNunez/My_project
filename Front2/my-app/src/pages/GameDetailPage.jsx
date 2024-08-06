@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  fetchGameById,
-  addRating,
-  addComment,
-  deleteComment,
-  fetchUserById,
-} from "../Api";
+import { fetchGameById, addRating, addComment, deleteComment } from "../Api";
 import "../styles/GameDetailPage.css";
 
 const GameDetailPage = () => {
@@ -17,7 +11,6 @@ const GameDetailPage = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [user, setUser] = useState(null);
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const getGame = async () => {
@@ -33,12 +26,16 @@ const GameDetailPage = () => {
   }, [gameId]);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
+    const user = JSON.parse(localStorage.getItem("user"));
     const token = localStorage.getItem("token");
-    if (userId && token) {
-      setUser({ userId, token });
+    if (user && token) {
+      setUser({ ...user, token });
+    } else {
+      console.log("No user or token found in localStorage");
     }
   }, []);
+
+  useEffect(() => {}, [user]);
 
   const handleRatingChange = async (newRating) => {
     if (!user) {
@@ -49,10 +46,7 @@ const GameDetailPage = () => {
       await addRating(gameId, newRating);
       setGame((prevGame) => ({
         ...prevGame,
-        ratings: [
-          ...prevGame.ratings,
-          { userId: user.userId, rating: newRating },
-        ],
+        ratings: [...prevGame.ratings, { userId: user._id, rating: newRating }],
       }));
       setRating(newRating);
     } catch (error) {
@@ -63,21 +57,18 @@ const GameDetailPage = () => {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-
-    const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      setError("Tienes que estar logueado para  comentar.");
+      setError("Tienes que estar logueado para comentar.");
       return;
     }
     try {
-      const response = await addComment(gameId, { comment });
-      console.log(user);
+      await addComment(gameId, { comment });
       setGame((prevGame) => ({
         ...prevGame,
         comments: [
           ...prevGame.comments,
           {
-            userId: user.userId,
+            userId: user._id,
             comment,
             userName: user.name || "Anónimo",
           },
@@ -96,26 +87,24 @@ const GameDetailPage = () => {
       return;
     }
 
-    // Muestra el cuadro de confirmación
     const confirmDelete = window.confirm(
       "¿Estás seguro de que deseas eliminar este comentario?"
     );
 
-    if (!confirmDelete) {
-      return; // Si el usuario cancela, no hacer nada
-    }
+    if (confirmDelete) {
+      try {
+        await deleteComment(gameId, commentId);
 
-    try {
-      await deleteComment(gameId, commentId);
-      setGame((prevGame) => ({
-        ...prevGame,
-        comments: prevGame.comments.filter(
-          (comment) => comment._id !== commentId
-        ),
-      }));
-    } catch (error) {
-      setError("Error deleting comment");
-      console.error("Error deleting comment:", error);
+        setGame((prevGame) => ({
+          ...prevGame,
+          comments: prevGame.comments.filter(
+            (comment) => comment._id !== commentId
+          ),
+        }));
+      } catch (error) {
+        setError("Error deleting comment");
+        console.error("Error deleting comment:", error);
+      }
     }
   };
 
@@ -159,8 +148,8 @@ const GameDetailPage = () => {
       <div className="game-description">
         <p>
           <strong>Acerca del juego: </strong>
-          <br></br>
-          <br></br>
+          <br />
+          <br />
           {game.description}
         </p>
       </div>
@@ -186,21 +175,19 @@ const GameDetailPage = () => {
               Valoración: {averageRating} estrellas
             </p>
           </div>
-          {token !== undefined && (
-            <div className="comments-section">
-              <h3>Deja tu opinión:</h3>
-              <form onSubmit={handleCommentSubmit}>
-                <label>
-                  <textarea
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    required
-                  />
-                </label>
-                <button type="submit">Enviar</button>
-              </form>
-            </div>
-          )}
+          <div className="comments-section">
+            <h3>Deja tu opinión:</h3>
+            <form onSubmit={handleCommentSubmit}>
+              <label>
+                <textarea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  required
+                />
+              </label>
+              <button type="submit">Enviar</button>
+            </form>
+          </div>
         </div>
       )}
       <div className="game-comments">
@@ -208,12 +195,12 @@ const GameDetailPage = () => {
         {game.comments.length === 0 ? (
           <p>No hay opiniones aún.</p>
         ) : (
-          game.comments.map((comment, index) => (
-            <div key={index} className="comment">
+          game.comments.map((comment) => (
+            <div key={comment._id} className="comment">
               <p>
                 <strong>{comment.userName || "Anónimo"}:</strong>{" "}
                 {comment.comment}
-                {user && user.userId === comment.userId && (
+                {user && user._id === comment.userId && (
                   <button
                     className="delete-comment-button"
                     onClick={() => handleDeleteComment(comment._id)}

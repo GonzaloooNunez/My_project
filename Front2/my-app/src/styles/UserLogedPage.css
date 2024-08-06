@@ -28,6 +28,12 @@
   object-fit: cover;
 }
 
+.profile-button:hover,
+.cart-button:hover {
+  background: none;
+  transform: scale(1.2);
+}
+
 .homepage-titulo {
   font-size: 2.5em;
   font-weight: bold;

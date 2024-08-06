@@ -157,18 +157,24 @@
 }
 
 .delete-comment-button {
-  background: none; /* Sin fondo */
-  border: none; /* Sin borde */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  padding: 0; /* Sin espaciado interno */
-  margin-left: 18px; /* Espacio a la izquierda del botón */
+  background: transparent; /* Fondo transparente */
+  border: 0.6px solid #e68d8d; /* Borde rojo */
+  padding: 1px 1px; /* Espaciado */
+  cursor: pointer; /* Cursor pointer */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño del texto */
+  transition: all 0.3s ease; /* Transición suave */
+  margin-left: 10px;
 }
+
+/* Estilo cuando se pasa el ratón sobre el botón */
 .delete-comment-button:hover {
-  background-color: #eb4949;
-  border-color: #ff0000;
+  background: transparent; /* Fondo rojo al pasar el ratón */
+  color: white; /* Color del texto blanco */
+  border: 1.9px solid #ff0000;
 }
 
 .delete-comment-button img {
-  width: 15px; /* Ancho de la imagen */
-  height: 15px; /* Alto de la imagen */
+  width: 15px;
+  height: 15px;
 }

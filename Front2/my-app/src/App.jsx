@@ -15,10 +15,14 @@ function App() {
       <nav>
         <ul>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
           </li>
           <li>
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/signup" className="nav-link">
+              Sign Up
+            </Link>
           </li>
         </ul>
       </nav>
