@@ -5,21 +5,38 @@ body {
   background-color: #332e2e;
 }
 
+/* Estilo para la barra de navegación */
 nav {
   background-color: #201f1f;
   color: #fff;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* Contenedor para los enlaces de inicio de sesión y registro */
+.nav-left {
+  display: flex;
+  gap: 1rem; /* Espacio entre los enlaces de inicio de sesión y registro */
+}
+
+/* Contenedor para los enlaces de cerrar sesión */
+.nav-right {
+  display: flex;
+  gap: 1rem; /* Espacio entre los enlaces de cerrar sesión y otros enlaces */
+}
+
+/* Estilo para la lista de enlaces en la barra de navegación */
 nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: flex-end;
   gap: 1rem;
 }
 
+/* Estilo para los enlaces en la barra de navegación */
 nav a {
   color: #fff;
   text-decoration: none;
@@ -28,17 +45,37 @@ nav a {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* Efecto hover para los enlaces */
 nav a:hover {
   background-color: #333;
   color: #fff;
 }
 
-.nav-link:hover {
-  transform: scale(2);
-  color: #070707;
-  background-color: #e9ecef;
+/* Efecto específico para el enlace de "Iniciar sesión" */
+.nav-link {
+  transform: scale(1);
 }
 
+/* Efecto hover específico para el enlace de "Iniciar sesión" */
+.nav-link:hover {
+  transform: scale(1.03); /* Mantén un tamaño de escala razonable */
+  color: #070707;
+  background-color: #d6d1d1;
+}
+
+/* Efecto específico para el enlace de "Registrarse" */
+.nav-link-2 {
+  transform: scale(1);
+}
+
+/* Efecto hover específico para el enlace de "Registrarse" */
+.nav-link-2:hover {
+  transform: scale(1.03); /* Mantén un tamaño de escala razonable */
+  color: #070707;
+  background-color: #d6d1d1;
+}
+
+/* Contenedor principal de la aplicación */
 .container {
   max-width: 1500px;
   margin: 2rem auto;
@@ -48,6 +85,7 @@ nav a:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo para los campos del formulario */
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -58,6 +96,7 @@ input[type="password"] {
   border-radius: 4px;
 }
 
+/* Estilo para los botones */
 button {
   padding: 0.5rem 1rem;
   border: none;
@@ -67,10 +106,12 @@ button {
   cursor: pointer;
 }
 
+/* Efecto hover para los botones */
 button:hover {
   background-color: #218838;
 }
 
+/* Estilo para los encabezados */
 h1 {
   text-align: center;
   color: #333;
@@ -81,10 +122,12 @@ h3 {
   color: #333;
 }
 
+/* Estilo para los párrafos */
 p {
   margin: 0.5rem 0;
 }
 
+/* Estilo para las imágenes */
 img {
   max-width: 100%;
   border-radius: 4px;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../Api";
+import "../styles/LoginForm.css"; // Asegúrate de que la ruta sea correcta
 
 const LoginForm = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -20,12 +21,10 @@ const LoginForm = () => {
       const { token, user } = response.data;
 
       if (user) {
-        // Almacena el token y el userId en el localStorage (opcional)
         localStorage.setItem("userId", user.id);
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
-        // Redirige al perfil del usuario
         navigate(`/user-logged`);
       } else {
         setMessage("No se pudo obtener el ID del usuario.");
@@ -43,28 +42,41 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleGoHome}>Home</button>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Login</button>
-        {message && <p>{message}</p>}
-      </form>
+    <div className="form-container">
+      <div className="form-wrapper">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            className="input-field"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            className="input-field"
+          />
+          <div className="button-container">
+            <button className="button-style button-login-style" type="submit">
+              Iniciar sesion
+            </button>
+            <button
+              className="button-style button-home-style"
+              onClick={handleGoHome}
+            >
+              Volver
+            </button>
+          </div>
+          {message && <p className="error-message">{message}</p>}
+        </form>
+      </div>
     </div>
   );
 };

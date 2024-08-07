@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../Api";
+import "../styles/SignupForm.css"; // Asegúrate de que la ruta sea correcta
 
 const SignupForm = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
     name: "",
-    role: "",
+    role: "User",
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -30,43 +31,56 @@ const SignupForm = () => {
     }
   };
 
+  const handleGoHome = () => {
+    navigate("/");
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="name"
-        placeholder="name"
-        value={form.name}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={form.password}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
-        name="role"
-        placeholder="Role"
-        value={form.role}
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Sign Up</button>
-      {message && <p>{message}</p>}
-    </form>
+    <div className="form-container">
+      <div className="form-wrapper">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={form.name}
+            onChange={handleChange}
+            required
+            className="input-field"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            className="input-field"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            className="input-field"
+          />
+          <div className="button-container">
+            <button className="button-style button-signup-style" type="submit">
+              Registrarse
+            </button>
+            <button
+              className="button-style button-home-style"
+              onClick={handleGoHome}
+            >
+              Volver
+            </button>
+          </div>
+          {message && <p className="error-message">{message}</p>}
+        </form>
+      </div>
+    </div>
   );
 };
 

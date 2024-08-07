@@ -1,0 +1,73 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Contenedor del formulario */
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px; /* Ajusta el ancho máximo del formulario según sea necesario */
+}
+
+/* Estilo de los botones */
+.button-style {
+  padding: 10px 20px;
+  margin: 5px; /* Espacio entre los botones */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+/* Estilo específico para el botón Home */
+.button-home-style {
+  background-color: #767777;
+  font-size: 14px; /* Tamaño de fuente más pequeño para el botón de "Volver" */
+  padding: 8px 16px; /* Tamaño de padding más pequeño para el botón de "Volver" */
+  width: auto; /* Ajusta el ancho del botón "Volver" */
+}
+
+.button-home-style:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo específico para el botón Login */
+.button-login-style {
+  width: 300px;
+  background-color: #767777;
+}
+
+.button-login-style:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para los campos del formulario */
+.input-field {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* Estilo para el contenedor de los botones */
+.button-container {
+  display: flex;
+  flex-direction: column; /* Alinea los botones verticalmente uno debajo del otro */
+  align-items: center;
+  width: 100%;
+  margin-top: 10px; /* Ajusta el margen superior para acercar el formulario al botón "Inicia Sesión" */
+}
+
+/* Estilo para mensajes de error */
+.error-message {
+  color: red;
+  font-weight: bold;
+}
