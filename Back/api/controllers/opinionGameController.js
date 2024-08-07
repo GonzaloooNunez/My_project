@@ -1,16 +1,35 @@
 const Game = require("../models/Games");
 
 const addRating = async (req, res) => {
-  const { gameId } = req.params;
+  const gameId = req.params.id;
   const { rating } = req.body;
-  const userId = req.user.id;
+  const { id } = req.user;
+
+  console.log(gameId);
+  console.log(rating);
+  console.log(id);
 
   try {
     const game = await Game.findById(gameId);
-    game.ratings.push({ userId, rating });
+
+    console.log(game);
+
+    const alreadyUserRating = game.ratings.findIndex(
+      (rating) => rating.userId.toString() === id
+    );
+    console.log(alreadyUserRating);
+
+    if (alreadyUserRating === -1) {
+      game.ratings.push({ userId: id, rating });
+    } else {
+      const userRating = game.ratings[alreadyUserRating];
+      userRating.rating = rating;
+    }
+
     await game.save();
     res.status(200).json({ message: "Rating added successfully" });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Error adding rating", error });
   }
 };
@@ -18,7 +37,7 @@ const addRating = async (req, res) => {
 const addComment = async (req, res) => {
   const gameId = req.params.id;
   const { comment } = req.body;
-  const { id, name } = req.user; // Obtenido del middleware
+  const { id, name } = req.user;
 
   console.log(req.user);
 

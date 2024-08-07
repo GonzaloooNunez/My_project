@@ -9,6 +9,7 @@ const signup = async (req, res) => {
   try {
     const { email, password, name, role } = req.body;
 
+    console.log(email, password, name, role);
     if (!email || !password || !name || !role) {
       throw new Error("Todos los campos son obligatorios");
     }
@@ -47,7 +48,6 @@ const login = async (req, res) => {
       throw new Error("No se ha proporcionado el campo email o password");
     }
 
-    // Busca al usuario por email
     const user = await Usuario.findOne({ email });
 
     if (!user) {
@@ -73,7 +73,6 @@ const login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    // Envía el token en una cookie
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

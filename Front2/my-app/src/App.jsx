@@ -6,8 +6,10 @@ import LogoutForm from "./components/LogoutForm";
 import SignupPage from "./pages/SignupPage";
 import GameDetailPage from "./pages/GameDetailPage";
 import UserLogedPage from "./pages/UserLogedPage";
+import AdminLogedPage from "./pages/AdminLogedPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import "./styles/App.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,6 +29,7 @@ function App() {
         <div className="nav-left">
           {!isAuthenticated && (
             <>
+              <p>{isAuthenticated}</p>
               <Link to="/login" className="nav-link">
                 Iniciar sesión
               </Link>
@@ -57,6 +60,8 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/games/:gameId" element={<GameDetailPage />} />
           <Route path="/user-logged" element={<UserLogedPage />} />
+          <Route path="/admin-logged" element={<AdminLogedPage />} /> //POR
+          HACER
           <Route path="/user-profile/:userId" element={<UserProfilePage />} />
         </Routes>
       </div>

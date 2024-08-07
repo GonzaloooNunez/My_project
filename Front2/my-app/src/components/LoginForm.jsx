@@ -25,7 +25,12 @@ const LoginForm = () => {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
-        navigate(`/user-logged`);
+        // Verifica el rol del usuario y redirige a la ruta adecuada
+        if (user.role === "Admin") {
+          navigate(`/admin-logged`);
+        } else {
+          navigate(`/user-logged`);
+        }
       } else {
         setMessage("No se pudo obtener el ID del usuario.");
       }
@@ -65,7 +70,7 @@ const LoginForm = () => {
           />
           <div className="button-container">
             <button className="button-style button-login-style" type="submit">
-              Iniciar sesion
+              Iniciar sesión
             </button>
             <button
               className="button-style button-home-style"

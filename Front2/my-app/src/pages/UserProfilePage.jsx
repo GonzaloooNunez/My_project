@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUserById, updateUser } from "../Api";
+import "../styles/UserProfilePage.css"; // Asegúrate de importar el archivo CSS
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [editing, setEditing] = useState(false);
-  const [form, setForm] = useState({ nombre: "", email: "", password: "" });
+  const [form, setForm] = useState({
+    nombre: "",
+    email: "",
+    password: "",
+    currentPassword: "",
+  });
+  const [currentPasswordVisible, setCurrentPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,9 +38,10 @@ const UserProfile = () => {
         const response = await fetchUserById(userId);
         setUser(response.data);
         setForm({
-          nombre: response.data.nombre || "",
+          name: response.data.name || "",
           email: response.data.email || "",
           password: "",
+          currentPassword: "",
         });
       } catch (error) {
         setError("Error fetching user data");
@@ -54,23 +63,34 @@ const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!form.currentPassword) {
+      setError("Por favor ingrese su contraseña actual.");
+      return;
+    }
+
     try {
-      // Crear un objeto que contenga solo los campos que han sido cambiados
-      const updatedUser = {
-        nombre: form.nombre,
-        email: form.email,
-        ...(form.password && { password: form.password }), // Solo incluir la contraseña si está presente
-      };
-      const storedUser = localStorage.getItem("user");
-      if (!storedUser) {
-        setError("User data not found in localStorage");
+      // Validar la contraseña actual
+      const validationResponse = await fetchUserById(
+        user._id,
+        form.currentPassword
+      );
+      if (!validationResponse.valid) {
+        setError("Contraseña actual incorrecta.");
         return;
       }
-      const parsedUser = JSON.parse(storedUser);
-      const userId = parsedUser._id;
-      await updateUser(userId, updatedUser);
+
+      // Preparar los datos del usuario para actualizar
+      const updatedUser = {
+        nombre: form.name,
+        email: form.email,
+        ...(form.password && { password: form.password }),
+      };
+
+      await updateUser(user._id, updatedUser);
       setUser({ ...user, ...updatedUser });
       setEditing(false);
+      setError("");
     } catch (error) {
       setError("Error updating user data");
       console.error("Error updating user data:", error);
@@ -82,18 +102,22 @@ const UserProfile = () => {
 
   return (
     <div>
-      <button onClick={() => navigate("/user-logged")}>Home</button>
-
-      <h1>Profile</h1>
+      <button
+        onClick={() => navigate("/user-logged")}
+        className="user-profile-button"
+      >
+        Volver
+      </button>
+      <h1>Perfil del usuario</h1>
       {editing ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="user-profile-form">
           <div>
             <label htmlFor="nombre">Nombre:</label>
             <input
               type="text"
               id="nombre"
               name="nombre"
-              value={form.nombre}
+              value={form.name}
               onChange={handleChange}
               required
             />
@@ -109,19 +133,49 @@ const UserProfile = () => {
               required
             />
           </div>
-          <div>
+          <div className="password-field">
+            <label htmlFor="currentPassword">Contraseña Actual:</label>
+            <input
+              type={currentPasswordVisible ? "text" : "password"}
+              id="currentPassword"
+              name="currentPassword"
+              value=""
+              onChange={handleChange}
+              required
+              placeholder="Introduce tu contraseña actual"
+            />
+            <i
+              className={`fa ${
+                currentPasswordVisible ? "fa-eye-slash" : "fa-eye"
+              } password-toggle`}
+              onClick={() => setCurrentPasswordVisible(!currentPasswordVisible)}
+            ></i>
+          </div>
+          <div className="password-field">
             <label htmlFor="password">Nueva Contraseña:</label>
             <input
-              type="password"
+              type={passwordVisible ? "text" : "password"}
               id="password"
               name="password"
               value={form.password}
               onChange={handleChange}
               placeholder="Dejar vacío si no desea cambiar la contraseña"
             />
+            <i
+              className={`fa ${
+                passwordVisible ? "fa-eye-slash" : "fa-eye"
+              } password-toggle`}
+              onClick={() => setPasswordVisible(!passwordVisible)}
+            ></i>
           </div>
-          <button type="submit">Guardar</button>
-          <button type="button" onClick={handleEditClick}>
+          <button type="submit" className="user-profile-button">
+            Guardar
+          </button>
+          <button
+            type="button"
+            onClick={handleEditClick}
+            className="user-profile-button"
+          >
             Cancelar
           </button>
         </form>
@@ -134,13 +188,12 @@ const UserProfile = () => {
             <strong>Email:</strong> {user.email}
           </p>
           <p>
-            <strong>{user.role}</strong>
-          </p>
-          <p>
             <strong>Fecha de Creación:</strong>{" "}
             {new Date(user.fecha_creacion).toLocaleDateString()}
           </p>
-          <button onClick={handleEditClick}>Editar</button>
+          <button onClick={handleEditClick} className="user-profile-button">
+            Editar
+          </button>
         </div>
       )}
     </div>

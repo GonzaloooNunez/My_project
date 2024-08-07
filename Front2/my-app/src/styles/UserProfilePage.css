@@ -1,0 +1,41 @@
+.user-profile-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.user-profile-button {
+  background: #767777;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.user-profile-button:hover {
+  background-color: #0056b3;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  padding-right: 30px; /* Espacio para el icono */
+}
+
+.password-toggle {
+  position: absolute;
+  top: 60%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

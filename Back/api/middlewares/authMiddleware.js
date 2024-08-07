@@ -35,7 +35,7 @@ const isAdmin = (req, res, next) => {
   const admin = isLogged(req, res);
   if (!admin) return;
 
-  if (admin.role !== "Admin") {
+  if (user.role !== "Admin") {
     return res
       .status(403)
       .json({ message: "El usuario no es un administrador" });
