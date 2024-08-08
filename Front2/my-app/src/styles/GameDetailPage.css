@@ -142,12 +142,12 @@
 }
 
 .star-rating input:checked ~ label {
-  color: #ff0;
+  color: rgb(219, 219, 0);
 }
 
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-  color: #ff0;
+  color: rgb(219, 219, 0);
 }
 
 .current-rating {

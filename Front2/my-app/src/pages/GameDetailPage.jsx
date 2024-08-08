@@ -15,6 +15,7 @@ const GameDetailPage = () => {
   const [user, setUser] = useState(null);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [comments, setComments] = useState([]);
+  const [userRating, setUserRating] = useState(null); // Valoración del usuario
 
   useEffect(() => {
     const getGame = async () => {
@@ -26,6 +27,21 @@ const GameDetailPage = () => {
             (a, b) => new Date(b.date) - new Date(a.date)
           )
         );
+        const user = JSON.parse(localStorage.getItem("user"));
+        const token = localStorage.getItem("token");
+        if (user && token) {
+          setUser({ ...user, token });
+
+          const savedRating = response.data.ratings.find(
+            (rating) => rating.userId === user._id
+          );
+          if (savedRating) {
+            setUserRating(savedRating.rating);
+          }
+        } else {
+          console.log("No user or token found in localStorage");
+        }
+
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         setIsAddedToCart(cart.some((item) => item._id === response.data._id));
       } catch (error) {
@@ -51,13 +67,33 @@ const GameDetailPage = () => {
       setError("You must be logged in to rate this game.");
       return;
     }
+
     try {
-      await addRating(gameId, newRating);
-      setGame((prevGame) => ({
-        ...prevGame,
-        ratings: [...prevGame.ratings, { userId: user._id, rating: newRating }],
-      }));
-      setRating(newRating);
+      // Guarda la calificación en el almacenamiento local
+      localStorage.setItem(`rating_${gameId}_${user._id}`, newRating);
+
+      // Actualiza o agrega la calificación en la base de datos
+      await addRating(gameId, newRating, user._id);
+
+      setGame((prevGame) => {
+        const existingRatingIndex = prevGame.ratings.findIndex(
+          (r) => r.userId === user._id
+        );
+
+        if (existingRatingIndex > -1) {
+          // Actualiza la calificación existente
+          prevGame.ratings[existingRatingIndex].rating = newRating;
+        } else {
+          // Añade una nueva calificación
+          prevGame.ratings.push({ userId: user._id, rating: newRating });
+        }
+
+        return {
+          ...prevGame,
+          ratings: [...prevGame.ratings],
+        };
+      });
+      setUserRating(newRating);
     } catch (error) {
       setError("Error adding rating");
       console.error("Error adding rating:", error);
@@ -201,19 +237,29 @@ const GameDetailPage = () => {
         <div className="rating-comment-section">
           <div className="rating-container">
             <div className="star-rating">
-              {[...Array(5)].map((_, i) => (
-                <React.Fragment key={i}>
-                  <input
-                    type="radio"
-                    id={`star${i + 1}`}
-                    name="rating"
-                    value={i + 1}
-                    checked={rating === i + 1}
-                    onChange={() => handleRatingChange(i + 1)}
-                  />
-                  <label htmlFor={`star${i + 1}`}>★</label>
-                </React.Fragment>
-              ))}
+              {[...Array(5)].map((_, i) => {
+                const starValue = 5 - i; // Invertir valores: 5, 4, 3, 2, 1
+                return (
+                  <React.Fragment key={i}>
+                    <input
+                      type="radio"
+                      id={`star${starValue}`}
+                      name="rating"
+                      value={starValue}
+                      checked={userRating === starValue}
+                      onChange={() => handleRatingChange(starValue)}
+                    />
+                    <label
+                      htmlFor={`star${starValue}`}
+                      className={`star ${
+                        userRating >= starValue ? "selected" : ""
+                      }`}
+                    >
+                      ★
+                    </label>
+                  </React.Fragment>
+                );
+              })}
             </div>
             <p className="current-rating">Valoración: {averageRating}</p>
           </div>

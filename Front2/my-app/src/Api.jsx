@@ -19,6 +19,8 @@ export const fetchGameById = (id) =>
   api.get(`/games/${id}`, { withCredentials: true });
 export const createGame = (gameData) =>
   api.post("/games/create", gameData, { withCredentials: true });
+export const updateGame = (id, gameData) =>
+  api.put(`/games/${id}`, gameData, { withCredentials: true });
 export const signupUser = (userData) =>
   api.post("/user/signup", userData, { withCredentials: true });
 export const loginUser = (userData) =>

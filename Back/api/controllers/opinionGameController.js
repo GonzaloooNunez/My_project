@@ -5,10 +5,6 @@ const addRating = async (req, res) => {
   const { rating } = req.body;
   const { id } = req.user;
 
-  console.log(gameId);
-  console.log(rating);
-  console.log(id);
-
   try {
     const game = await Game.findById(gameId);
 
@@ -39,16 +35,12 @@ const addComment = async (req, res) => {
   const { comment } = req.body;
   const { id, name } = req.user;
 
-  console.log(req.user);
-
   if (!comment || !id) {
     return res.status(400).json({ message: "Comment and userId are required" });
   }
 
   try {
-    //console.log(gameId);
     const game = await Game.findById(gameId);
-    //console.log(game);
     if (!game) {
       return res.status(404).json({ message: "Game not found" });
     }
@@ -67,6 +59,8 @@ const addComment = async (req, res) => {
     res.status(500).json({ message: "Error adding comment", error });
   }
 };
+
+module.exports = { addComment };
 
 const deleteComment = async (req, res) => {
   const gameId = req.params.id;
