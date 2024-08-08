@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Game = require("../models/Games");
 
 const remove = async (req, res) => {
@@ -15,6 +16,12 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   try {
+    console.log("Updating game with ID:", req.params.id);
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ message: "ID inválido" });
+    }
+
     const game = await Game.findById(req.params.id);
     if (!game) return res.status(404).json({ message: "Juego no encontrado" });
 
@@ -29,6 +36,7 @@ const update = async (req, res) => {
     const updatedGame = await game.save();
     res.json(updatedGame);
   } catch (err) {
+    console.error("Error updating game:", err);
     res.status(400).json({ message: err.message });
   }
 };

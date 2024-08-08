@@ -79,7 +79,7 @@ const UserLogedPage = () => {
   };
 
   const handleAddToCart = () => {
-    updateCartCount(); // Actualizar el contador al añadir un juego
+    updateCartCount();
   };
 
   return (

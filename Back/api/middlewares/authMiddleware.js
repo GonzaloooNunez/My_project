@@ -32,8 +32,11 @@ const isUser = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  const admin = isLogged(req, res);
-  if (!admin) return;
+  const user = isLogged(req, res);
+
+  if (!user) {
+    return res.status(401).json({ message: "No autenticado" });
+  }
 
   if (user.role !== "Admin") {
     return res
