@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchGameById, addRating, addComment, deleteComment } from "../Api";
 import "../styles/GameDetailPage.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const GameDetailPage = () => {
   const { gameId } = useParams();
@@ -11,12 +13,21 @@ const GameDetailPage = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [user, setUser] = useState(null);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const getGame = async () => {
       try {
         const response = await fetchGameById(gameId);
         setGame(response.data);
+        setComments(
+          response.data.comments.sort(
+            (a, b) => new Date(b.date) - new Date(a.date)
+          )
+        );
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        setIsAddedToCart(cart.some((item) => item._id === response.data._id));
       } catch (error) {
         setError("Error fetching game details");
         console.error("Error fetching game details:", error);
@@ -61,22 +72,22 @@ const GameDetailPage = () => {
     }
     try {
       await addComment(gameId, { comment });
-      setGame((prevGame) => ({
-        ...prevGame,
-        comments: [
-          ...prevGame.comments,
-          {
-            userId: user._id,
-            comment,
-            userName: user.name || "Anónimo",
-          },
-        ],
-      }));
+      const newComment = {
+        userId: user._id,
+        comment,
+        userName: user.name || "Anónimo",
+        date: new Date().toISOString(),
+      };
+      setComments((prevComments) => [newComment, ...prevComments]); // Agrega el nuevo comentario al inicio
       setComment("");
     } catch (error) {
       setError("Error adding comment");
       console.error("Error adding comment:", error);
     }
+  };
+
+  const handleCancelComment = () => {
+    setComment(""); // Limpia el contenido del área de texto
   };
 
   const handleDeleteComment = async (commentId) => {
@@ -92,13 +103,9 @@ const GameDetailPage = () => {
     if (confirmDelete) {
       try {
         await deleteComment(gameId, commentId);
-
-        setGame((prevGame) => ({
-          ...prevGame,
-          comments: prevGame.comments.filter(
-            (comment) => comment._id !== commentId
-          ),
-        }));
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment._id !== commentId)
+        );
       } catch (error) {
         setError("Error deleting comment");
         console.error("Error deleting comment:", error);
@@ -116,13 +123,21 @@ const GameDetailPage = () => {
 
   const handleAddToCart = () => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    if (!cart.find((item) => item._id === game._id)) {
+    if (!isAddedToCart) {
       cart.push(game);
       localStorage.setItem("cart", JSON.stringify(cart));
-      alert("Juego añadido al carrito");
+      setIsAddedToCart(true);
     } else {
       alert("Este juego ya está en el carrito");
     }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Meses son base 0
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   if (error) {
@@ -152,8 +167,24 @@ const GameDetailPage = () => {
             <i>Stock: </i>
             {game.stock}
           </p>
-          <button className="add-to-cart-button" onClick={handleAddToCart}>
-            Añadir al carrito
+          <button
+            className={`add-to-cart-button ${
+              isAddedToCart ? "added-to-cart-button" : ""
+            }`}
+            onClick={handleAddToCart}
+            disabled={isAddedToCart}
+          >
+            {isAddedToCart ? (
+              <>
+                <FontAwesomeIcon icon={faCheck} className="icon-check" />
+                <span>En el carrito</span>
+              </>
+            ) : (
+              <>
+                <FontAwesomeIcon icon={faCartPlus} className="icon" />
+                <span>Añadir al carrito</span>
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -165,6 +196,7 @@ const GameDetailPage = () => {
           {game.description}
         </p>
       </div>
+      <h3 className="game-comments-title">{comments.length} Comentarios</h3>
       {user && (
         <div className="rating-comment-section">
           <div className="rating-container">
@@ -183,47 +215,60 @@ const GameDetailPage = () => {
                 </React.Fragment>
               ))}
             </div>
-            <p className="current-rating">
-              Valoración: {averageRating} estrellas
-            </p>
+            <p className="current-rating">Valoración: {averageRating}</p>
           </div>
           <div className="comments-section">
-            <h3>Deja tu opinión:</h3>
-            <form onSubmit={handleCommentSubmit}>
-              <label>
-                <textarea
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  required
-                />
-              </label>
-              <button type="submit">Enviar</button>
+            <form onSubmit={handleCommentSubmit} className="comment-form">
+              <textarea
+                className="comment-textarea"
+                placeholder="Deja tu opinión..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                required
+              />
+              {comment.trim() && (
+                <div className="comment-buttons-container">
+                  <button type="submit" className="submit-comment-button">
+                    Comentar
+                  </button>
+                  <button
+                    type="button"
+                    className="cancel-comment-button"
+                    onClick={handleCancelComment}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              )}
             </form>
           </div>
         </div>
       )}
       <div className="game-comments">
-        <h3>Opiniones:</h3>
-        {game.comments.length === 0 ? (
-          <p>No hay opiniones aún.</p>
+        {comments.length === 0 ? (
+          <p>No hay comentarios aún.</p>
         ) : (
-          game.comments.map((comment) => (
+          comments.map((comment) => (
             <div key={comment._id} className="comment">
-              <p>
-                <strong>{comment.userName || "Anónimo"}:</strong>{" "}
-                {comment.comment}
-                {user && user._id === comment.userId && (
-                  <button
-                    className="delete-comment-button"
-                    onClick={() => handleDeleteComment(comment._id)}
-                  >
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/7491/7491835.png"
-                      alt="Delete"
-                    />
-                  </button>
-                )}
-              </p>
+              <div className="comment-header">
+                <strong className="comment-username">
+                  {comment.userName || "Anónimo"}
+                </strong>{" "}
+                -{" "}
+                <span className="comment-date">{formatDate(comment.date)}</span>
+              </div>
+              <p>{comment.comment}</p>
+              {user && user._id === comment.userId && (
+                <button
+                  className="delete-comment-button"
+                  onClick={() => handleDeleteComment(comment._id)}
+                >
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/7491/7491835.png"
+                    alt="Delete"
+                  />
+                </button>
+              )}
             </div>
           ))
         )}

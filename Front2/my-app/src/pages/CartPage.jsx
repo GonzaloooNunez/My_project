@@ -4,17 +4,34 @@ import "../styles/CartPage.css";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(cart);
+    updateCartSummary(cart);
   }, []);
+
+  const updateCartSummary = (cart) => {
+    const price = cart.reduce((acc, game) => acc + game.precio, 0);
+    setTotalPrice(price);
+    setTotalItems(cart.length);
+  };
 
   const removeFromCart = (gameId) => {
     const updatedCart = cartItems.filter((game) => game._id !== gameId);
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+    updateCartSummary(updatedCart); // Actualizar el resumen después de eliminar un juego
+  };
+
+  const handleCheckout = () => {
+    // Lógica para realizar el pago o redirigir a una página de pago
+    alert(`Realizando pago de ${totalPrice} € por ${totalItems} productos.`);
+    // Redirigir a una página de pago o similar
+    // navigate('/payment-page');
   };
 
   return (
@@ -49,7 +66,15 @@ const CartPage = () => {
           ))}
         </ul>
       )}
-      <div className="button-container"></div>
+      {cartItems.length > 0 && (
+        <div className="summary">
+          <p>Total de productos: {totalItems}</p>
+          <p>Precio total: {totalPrice} €</p>
+          <button className="checkout-button" onClick={handleCheckout}>
+            Realizar Pago
+          </button>
+        </div>
+      )}
     </div>
   );
 };

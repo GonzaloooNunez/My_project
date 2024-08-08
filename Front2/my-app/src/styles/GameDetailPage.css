@@ -32,7 +32,9 @@
   margin-top: 20px;
 }
 
-.comments-section {
+.comments-section-container {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
   padding: 20px;
   border: 1px solid #ddd;
@@ -40,49 +42,79 @@
   background-color: #f9f9f9;
 }
 
-.comments-section h3 {
+.comments-section-container h3 {
   margin-bottom: 15px;
   font-size: 1.5rem;
   color: #333;
 }
 
-.comments-section form {
+.comments-section-form {
   display: flex;
   flex-direction: column;
 }
 
-.comments-section label {
+.comments-section-label {
   margin-bottom: 10px;
   font-weight: bold;
   color: #555;
 }
 
-.comments-section textarea {
+.comment-form {
+  margin-bottom: 21px;
+}
+
+.comment-textarea-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.comment-textarea {
   width: 100%;
-  height: 100px;
+  height: 30px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   resize: vertical;
   font-size: 1rem;
   font-family: Arial, sans-serif;
-  margin-bottom: 10px;
+  margin-right: 10px; /* Espacio entre el área de texto y el botón */
 }
 
-.comments-section button {
-  align-self: flex-start;
-  padding: 10px 20px;
+.submit-comment-button {
+  padding: 10px 10px;
   border: none;
   border-radius: 4px;
-  background-color: #767777;
+  background-color: #5a8d5f;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-right: 20px;
+  margin-left: 1200px;
 }
 
-.comments-section button:hover {
-  background-color: #0056b3;
+.submit-comment-button:hover {
+  background-color: #348b22;
+}
+
+.cancel-comment-button {
+  padding: 10px 13px;
+  border: none;
+  border-radius: 4px;
+  background-color: #c46060;
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+.cancel-comment-button:hover {
+  background-color: #e44343;
 }
 
 .rating-container {
@@ -123,17 +155,22 @@
   text-align: right;
 }
 
-.comments-section {
-  margin-top: 10px;
-  text-align: left;
+.game-comments-title {
+  margin-top: 20px;
 }
 
 .game-comments {
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .comment {
   margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd; /* Línea fina entre comentarios */
+}
+
+.comment:last-child {
+  border-bottom: none; /* Quitar la línea en el último comentario */
 }
 
 .back-button {
@@ -177,4 +214,70 @@
 .delete-comment-button img {
   width: 15px;
   height: 15px;
+}
+
+.add-to-cart-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  margin-top: 10px;
+  background-color: #767777;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+  background-color: #f89756;
+}
+
+/* Desactiva el efecto :hover cuando el juego está en el carrito */
+.added-to-cart-button {
+  background-color: #555;
+  cursor: not-allowed; /* Cambia el cursor para indicar que el botón está deshabilitado */
+}
+
+.added-to-cart-button:hover {
+  background-color: #555; /* Sin efecto al pasar el ratón */
+}
+
+/* Iconos */
+.add-to-cart-button .icon {
+  margin-left: 0px;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+.added-to-cart-button .icon-check {
+  display: inline;
+  margin-right: 5px; /* Muestra el icono de check cuando el juego está añadido */
+}
+
+.added-to-cart-button .icon {
+  display: none; /* Oculta el icono del carrito cuando el juego ya está añadido */
+}
+
+.game-opinions-title {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.comment-header {
+  font-size: 0.75rem; /* Ajusta el tamaño según tus necesidades */
+  color: #555; /* Puedes cambiar el color si lo deseas */
+  margin-bottom: 5px;
+}
+
+.comment-header strong {
+  font-size: 0.85rem; /* Ajusta el tamaño según tus necesidades */
+  color: #333; /* Puedes cambiar el color si lo deseas */
+}
+
+.comment-date {
+  font-size: 0.75rem; /* Asegúrate de aplicar el mismo tamaño que al nombre */
+  color: #777; /* Puedes ajustar el color */
+  margin-left: 5px;
 }

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faCartPlus, faCheck } from "@fortawesome/free-solid-svg-icons"; // Importa el ícono de "tic"
+import { faEdit, faCartPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import "../styles/ListGames.css";
 
 // Función para añadir un juego al carrito en localStorage
@@ -11,15 +11,26 @@ const addToCart = (game) => {
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
-const GameItem = ({ game }) => {
+// Función para comprobar si un juego está en el carrito
+const isGameInCart = (gameId) => {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  return cart.some((item) => item._id === gameId);
+};
+
+const GameItem = ({ game, onAddToCart }) => {
   const [added, setAdded] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    setAdded(isGameInCart(game._id));
+  }, [game._id]);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
     if (!added) {
       addToCart(game);
       setAdded(true);
+      onAddToCart(); // Llamar a la función para actualizar el contador
     }
   };
 
@@ -51,8 +62,7 @@ const GameItem = ({ game }) => {
               {added ? (
                 <>
                   Juego añadido{" "}
-                  <FontAwesomeIcon icon={faCheck} className="icon" />{" "}
-                  {/* Cambiar el ícono aquí */}
+                  <FontAwesomeIcon icon={faCheck} className="icon" />
                 </>
               ) : (
                 <>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LogoutForm = ({ onLogout }) => {
@@ -9,9 +9,9 @@ const LogoutForm = ({ onLogout }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    onLogout(); // Actualiza el estado de autenticación
+    onLogout();
 
-    navigate("/"); // Redirige a la página de inicio
+    navigate("/");
   }, []);
 
   return null;

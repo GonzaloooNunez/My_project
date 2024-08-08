@@ -53,7 +53,12 @@ const addComment = async (req, res) => {
       return res.status(404).json({ message: "Game not found" });
     }
 
-    game.comments.push({ comment, userId: id, userName: name });
+    game.comments.push({
+      comment,
+      userId: id,
+      userName: name,
+      date: new Date(),
+    });
 
     await game.save();
     res.status(200).json({ message: "Comment added successfully" });

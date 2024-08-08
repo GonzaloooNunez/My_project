@@ -15,6 +15,7 @@ const UserLogedPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState("");
+  const [cartCount, setCartCount] = useState(0); // Estado para contar los juegos en el carrito
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,6 +46,7 @@ const UserLogedPage = () => {
 
     getUserInfo();
     getGames();
+    updateCartCount(); // Actualizar el contador al cargar el componente
   }, []);
 
   useEffect(() => {
@@ -71,11 +73,20 @@ const UserLogedPage = () => {
     setSearchTerm(event.target.value);
   };
 
+  const updateCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartCount(cart.length);
+  };
+
+  const handleAddToCart = () => {
+    updateCartCount(); // Actualizar el contador al añadir un juego
+  };
+
   return (
     <div className="user-loged-page-container">
       <div className="navigation">
         <button
-          onClick={() => navigate(`/user-profile/${userId}`)} // Utilizar el estado userId aquí
+          onClick={() => navigate(`/user-profile/${userId}`)}
           className="profile-button"
         >
           <img
@@ -91,9 +102,17 @@ const UserLogedPage = () => {
             src="https://cdn-icons-png.flaticon.com/512/9356/9356974.png"
             alt="Carrito"
           />
+          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </button>
       </div>
-      <h1 className="homepage-titulo">EL VICIOTE.COM</h1>
+      <h1 className="homepage-titulo">
+        <img
+          src="https://images.emojiterra.com/twitter/v13.1/512px/1f3ae.png"
+          alt="Game Controller"
+          className="title-image"
+        />
+        EL VICIOTE.COM
+      </h1>
       <h2>Bienvenido {userName}!</h2>
       {error && <p>{error}</p>}
       <div className="user-filter-container">
@@ -111,7 +130,13 @@ const UserLogedPage = () => {
       </div>
       <ul className="game-list">
         {filteredGames.length > 0 ? (
-          filteredGames.map((game) => <GameItem key={game._id} game={game} />)
+          filteredGames.map((game) => (
+            <GameItem
+              key={game._id}
+              game={game}
+              onAddToCart={handleAddToCart} // Pasar la función como prop
+            />
+          ))
         ) : (
           <p>No se han encontrado juegos.</p>
         )}

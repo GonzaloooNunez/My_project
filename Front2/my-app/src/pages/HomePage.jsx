@@ -61,7 +61,14 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      <h1 className="homepage-titulo">EL VICIOTE.COM</h1>
+      <h1 className="homepage-titulo">
+        <img
+          src="https://images.emojiterra.com/twitter/v13.1/512px/1f3ae.png"
+          alt="Game Controller"
+          className="title-image"
+        />
+        EL VICIOTE.COM
+      </h1>
       {error && <p>{error}</p>}
       <div className="filter-search-container">
         <CategoryFilter

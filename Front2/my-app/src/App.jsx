@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  Navigate,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import LogoutForm from "./components/LogoutForm";
@@ -12,16 +18,20 @@ import "./styles/App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token);
+    if (token) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
   }, []);
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-  };
+  if (isAuthenticated === null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Router>
@@ -29,7 +39,6 @@ function App() {
         <div className="nav-left">
           {!isAuthenticated && (
             <>
-              <p>{isAuthenticated}</p>
               <Link to="/login" className="nav-link">
                 Iniciar sesión
               </Link>
@@ -51,11 +60,15 @@ function App() {
       </nav>
       <div className="container">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          {isAuthenticated ? (
+            <Route path="/" element={<Navigate to="/user-logged" replace />} />
+          ) : (
+            <Route path="/" element={<HomePage />} />
+          )}
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/logout"
-            element={<LogoutForm onLogout={handleLogout} />}
+            element={<LogoutForm onLogout={() => setIsAuthenticated(false)} />}
           />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/games/:gameId" element={<GameDetailPage />} />

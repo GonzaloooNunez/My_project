@@ -17,6 +17,13 @@
   border-radius: 8px;
 }
 
+.title-image {
+  width: 70px;
+  height: auto;
+  margin-right: 28px;
+  transform: rotate(-30deg);
+}
+
 .filter-container {
   position: absolute;
   top: 107px;

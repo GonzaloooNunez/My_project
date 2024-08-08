@@ -18,6 +18,7 @@ const commentSchema = new mongoose.Schema({
   },
   comment: { type: String, required: true },
   userName: { type: String, required: false },
+  date: { type: Date, default: Date.now },
 });
 
 const gamesSchema = new mongoose.Schema({
@@ -32,5 +33,6 @@ const gamesSchema = new mongoose.Schema({
 });
 
 const Game = mongoose.model("Game", gamesSchema);
+const Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = Game;
