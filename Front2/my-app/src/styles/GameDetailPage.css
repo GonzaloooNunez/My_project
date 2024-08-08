@@ -166,11 +166,11 @@
 .comment {
   margin-bottom: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ddd; /* Línea fina entre comentarios */
+  border-bottom: 1px solid #ddd;
 }
 
 .comment:last-child {
-  border-bottom: none; /* Quitar la línea en el último comentario */
+  border-bottom: none;
 }
 
 .back-button {
@@ -194,20 +194,19 @@
 }
 
 .delete-comment-button {
-  background: transparent; /* Fondo transparente */
-  border: 0.6px solid #e68d8d; /* Borde rojo */
-  padding: 1px 1px; /* Espaciado */
-  cursor: pointer; /* Cursor pointer */
-  border-radius: 4px; /* Bordes redondeados */
-  font-size: 16px; /* Tamaño del texto */
-  transition: all 0.3s ease; /* Transición suave */
+  background: transparent;
+  border: 0.6px solid #e68d8d;
+  padding: 1px 1px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: all 0.3s ease;
   margin-left: 10px;
 }
 
-/* Estilo cuando se pasa el ratón sobre el botón */
 .delete-comment-button:hover {
-  background: transparent; /* Fondo rojo al pasar el ratón */
-  color: white; /* Color del texto blanco */
+  background: transparent;
+  color: white;
   border: 1.9px solid #ff0000;
 }
 
@@ -233,14 +232,13 @@
   background-color: #f89756;
 }
 
-/* Desactiva el efecto :hover cuando el juego está en el carrito */
 .added-to-cart-button {
   background-color: #555;
-  cursor: not-allowed; /* Cambia el cursor para indicar que el botón está deshabilitado */
+  cursor: not-allowed;
 }
 
 .added-to-cart-button:hover {
-  background-color: #555; /* Sin efecto al pasar el ratón */
+  background-color: #555;
 }
 
 /* Iconos */
@@ -253,11 +251,11 @@
 
 .added-to-cart-button .icon-check {
   display: inline;
-  margin-right: 5px; /* Muestra el icono de check cuando el juego está añadido */
+  margin-right: 5px;
 }
 
 .added-to-cart-button .icon {
-  display: none; /* Oculta el icono del carrito cuando el juego ya está añadido */
+  display: none;
 }
 
 .game-opinions-title {
@@ -266,18 +264,18 @@
 }
 
 .comment-header {
-  font-size: 0.75rem; /* Ajusta el tamaño según tus necesidades */
-  color: #555; /* Puedes cambiar el color si lo deseas */
+  font-size: 0.75rem;
+  color: #555;
   margin-bottom: 5px;
 }
 
 .comment-header strong {
-  font-size: 0.85rem; /* Ajusta el tamaño según tus necesidades */
-  color: #333; /* Puedes cambiar el color si lo deseas */
+  font-size: 0.85rem;
+  color: #333;
 }
 
 .comment-date {
-  font-size: 0.75rem; /* Asegúrate de aplicar el mismo tamaño que al nombre */
-  color: #777; /* Puedes ajustar el color */
+  font-size: 0.75rem;
+  color: #777;
   margin-left: 5px;
 }

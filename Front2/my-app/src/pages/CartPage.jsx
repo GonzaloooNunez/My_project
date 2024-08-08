@@ -24,14 +24,11 @@ const CartPage = () => {
     const updatedCart = cartItems.filter((game) => game._id !== gameId);
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    updateCartSummary(updatedCart); // Actualizar el resumen después de eliminar un juego
+    updateCartSummary(updatedCart);
   };
 
   const handleCheckout = () => {
-    // Lógica para realizar el pago o redirigir a una página de pago
     alert(`Realizando pago de ${totalPrice} € por ${totalItems} productos.`);
-    // Redirigir a una página de pago o similar
-    // navigate('/payment-page');
   };
 
   return (

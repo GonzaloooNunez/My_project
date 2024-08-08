@@ -39,7 +39,6 @@ const signup = async (req, res) => {
   }
 };
 
-// Inicio de sesión
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -61,7 +60,6 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "La contraseña es incorrecta" });
     }
 
-    // Genera el token con el ID del usuario
     const token = jwt.sign(
       {
         name: user.name,
@@ -90,7 +88,6 @@ const login = async (req, res) => {
   }
 };
 
-// Encontrar un usuario por ID
 const findOneById = async (req, res) => {
   try {
     const user = await Usuario.findById(req.params.id);
@@ -103,19 +100,16 @@ const findOneById = async (req, res) => {
   }
 };
 
-// Actualizar un usuario por ID
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, email, password } = req.body;
 
-    // Verifica si el usuario existe
     const user = await Usuario.findById(id);
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    // Actualiza la información del usuario
     if (name) user.name = name;
     if (email) user.email = email;
     if (password) user.password = bcrypt.hashSync(password, SALT_ROUNDS);
