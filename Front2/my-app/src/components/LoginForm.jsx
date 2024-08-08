@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../Api";
-import "../styles/LoginForm.css"; // Asegúrate de que la ruta sea correcta
+import "../styles/LoginForm.css";
 
 const LoginForm = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -25,9 +25,8 @@ const LoginForm = () => {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
-        // Verifica el rol del usuario y redirige a la ruta adecuada
         if (user.role === "Admin") {
-          navigate(`/admin-logged`);
+          navigate(`/user-logged`);
         } else {
           navigate(`/user-logged`);
         }

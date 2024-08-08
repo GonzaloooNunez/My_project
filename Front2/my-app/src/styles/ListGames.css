@@ -148,3 +148,48 @@
   border-color: #80bdff;
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
 }
+
+.admin-button,
+.add-to-cart-button,
+.added-to-cart-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  margin-top: 10px;
+  background-color: #767777;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Añadido para suavizar el cambio de color */
+}
+
+.admin-button:hover {
+  background-color: #46c060;
+}
+
+.add-to-cart-button:hover {
+  background-color: #f89756;
+}
+
+.add-to-cart-button .icon {
+  margin-left: 8px;
+  width: 16px;
+  height: 16px;
+}
+
+.added-to-cart-button {
+  background-color: #555;
+  cursor: not-allowed;
+  /* Desactivar el efecto hover */
+}
+
+.added-to-cart-button:hover {
+  background-color: #555; /* No cambiar el color al pasar el ratón */
+}
+
+.added-to-cart-button .icon {
+  margin-left: 8px;
+  width: 16px;
+  height: 16px;
+}

@@ -13,8 +13,8 @@ const UserLogedPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [userName, setUserName] = useState(""); // Nuevo estado para el nombre del usuario
-  const [userId, setUserId] = useState(""); // Nuevo estado para el ID del usuario
+  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const UserLogedPage = () => {
           />
         </button>
         <button
-          onClick={() => alert("Botón 2 clickeado")}
+          onClick={() => navigate(`/cart/${userId}`)}
           className="cart-button"
         >
           <img

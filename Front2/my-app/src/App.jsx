@@ -6,7 +6,7 @@ import LogoutForm from "./components/LogoutForm";
 import SignupPage from "./pages/SignupPage";
 import GameDetailPage from "./pages/GameDetailPage";
 import UserLogedPage from "./pages/UserLogedPage";
-import AdminLogedPage from "./pages/AdminLogedPage";
+import CartPage from "./pages/CartPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import "./styles/App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -60,8 +60,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/games/:gameId" element={<GameDetailPage />} />
           <Route path="/user-logged" element={<UserLogedPage />} />
-          <Route path="/admin-logged" element={<AdminLogedPage />} /> //POR
-          HACER
+          <Route path="/cart/:userId" element={<CartPage />} />
           <Route path="/user-profile/:userId" element={<UserProfilePage />} />
         </Routes>
       </div>

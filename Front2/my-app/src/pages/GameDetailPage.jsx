@@ -35,8 +35,6 @@ const GameDetailPage = () => {
     }
   }, []);
 
-  useEffect(() => {}, [user]);
-
   const handleRatingChange = async (newRating) => {
     if (!user) {
       setError("You must be logged in to rate this game.");
@@ -116,6 +114,17 @@ const GameDetailPage = () => {
 
   const averageRating = calculateAverageRating();
 
+  const handleAddToCart = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (!cart.find((item) => item._id === game._id)) {
+      cart.push(game);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Juego añadido al carrito");
+    } else {
+      alert("Este juego ya está en el carrito");
+    }
+  };
+
   if (error) {
     return <p>{error}</p>;
   }
@@ -137,12 +146,15 @@ const GameDetailPage = () => {
             <i>Categoría:</i> {game.categoria}
           </p>
           <p>
-            <i>Precio:</i> {game.precio} €
+            <i>Precio:</i> {game.precio === 0 ? "Gratis" : `${game.precio} €`}
           </p>
           <p>
             <i>Stock: </i>
             {game.stock}
           </p>
+          <button className="add-to-cart-button" onClick={handleAddToCart}>
+            Añadir al carrito
+          </button>
         </div>
       </div>
       <div className="game-description">
