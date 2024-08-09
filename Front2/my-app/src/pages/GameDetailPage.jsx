@@ -18,12 +18,12 @@ const GameDetailPage = () => {
   const navigate = useNavigate();
   const [game, setGame] = useState(null);
   const [error, setError] = useState("");
-  const [rating, setRating] = useState(0);
+
   const [comment, setComment] = useState("");
   const [user, setUser] = useState(null);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [comments, setComments] = useState([]);
-  const [userRating, setUserRating] = useState(null); // Valoración del user
+  const [userRating, setUserRating] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [editedGame, setEditedGame] = useState({

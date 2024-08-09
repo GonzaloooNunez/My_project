@@ -96,7 +96,6 @@ input[type="password"] {
   border-radius: 4px;
 }
 
-/* Estilo para los botones */
 button {
   padding: 0.5rem 1rem;
   border: none;
@@ -106,12 +105,10 @@ button {
   cursor: pointer;
 }
 
-/* Efecto hover para los botones */
 button:hover {
   background-color: #218838;
 }
 
-/* Estilo para los encabezados */
 h1 {
   text-align: center;
   color: #333;
@@ -122,12 +119,10 @@ h3 {
   color: #333;
 }
 
-/* Estilo para los párrafos */
 p {
   margin: 0.5rem 0;
 }
 
-/* Estilo para las imágenes */
 img {
   max-width: 100%;
   border-radius: 4px;

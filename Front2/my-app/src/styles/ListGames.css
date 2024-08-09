@@ -1,6 +1,6 @@
 .homepage-container {
-  padding: 20px;
-  position: relative;
+  padding: 40px;
+  position: relaive;
 }
 
 .homepage-titulo {
@@ -8,13 +8,20 @@
   font-size: 2.5em;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  margin-top: 0px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   background: linear-gradient(45deg, #ffffff, #f70358);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   padding: 10px;
   border-radius: 8px;
+}
+
+.title-image-2 {
+  width: 500px;
+  height: auto;
+  margin-right: 28px;
 }
 
 .title-image {

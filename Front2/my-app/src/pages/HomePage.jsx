@@ -67,7 +67,11 @@ const HomePage = () => {
           alt="Game Controller"
           className="title-image"
         />
-        EL VICIOTE.COM
+        <img
+          src="/logo.png" // Ruta a la imagen del logo en el directorio public
+          alt="Logo"
+          className="title-image-2"
+        />
       </h1>
       {error && <p>{error}</p>}
       <div className="filter-search-container">

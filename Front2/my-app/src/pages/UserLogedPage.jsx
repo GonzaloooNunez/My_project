@@ -46,7 +46,7 @@ const UserLogedPage = () => {
 
     getUserInfo();
     getGames();
-    updateCartCount(); // Actualizar el contador al cargar el componente
+    updateCartCount();
   }, []);
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const UserLogedPage = () => {
           alt="Game Controller"
           className="title-image"
         />
-        EL VICIOTE.COM
+        <img src="/logo.png" alt="Logo" className="title-image-2" />
       </h1>
       <h2>Bienvenido {userName}!</h2>
       {error && <p>{error}</p>}

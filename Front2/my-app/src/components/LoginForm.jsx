@@ -10,7 +10,6 @@ const LoginForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setForm({ ...form, [name]: value });
   };
 
@@ -24,6 +23,9 @@ const LoginForm = () => {
         localStorage.setItem("userId", user.id);
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
+
+        // Vaciar el carrito del localStorage
+        localStorage.removeItem("cart");
 
         if (user.role === "Admin") {
           navigate(`/user-logged`);
