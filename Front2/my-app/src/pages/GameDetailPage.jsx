@@ -282,7 +282,7 @@ const GameDetailPage = () => {
             {isAddedToCart ? (
               <>
                 <FontAwesomeIcon icon={faCheck} className="icon-check" />
-                <span>En el carrito</span>
+                <span>Añadido al carro</span>
               </>
             ) : (
               <>

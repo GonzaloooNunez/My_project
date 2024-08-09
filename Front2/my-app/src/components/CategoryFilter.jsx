@@ -1,20 +1,45 @@
+import React from "react";
+import "../styles/CategoryFilter.css"; // Asegúrate de tener este archivo para los estilos
+
 const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
+  const handleButtonClick = (category) => {
+    onCategoryChange(category);
+  };
+
   return (
-    <div className="filter-container">
-      <label htmlFor="category-select">Categoría:</label>
-      <select
-        id="category-select"
-        value={selectedCategory}
-        onChange={onCategoryChange}
-      >
-        <option value="">Todas</option>
-        <option value="gratis">Gratis</option>
+    <div className="category-filter">
+      <p className="filter-label">
+        Encuentra los juegos que más se adapten a ti:
+      </p>
+      <div className="category-buttons">
+        <button
+          className={`category-button ${
+            selectedCategory === "" ? "active" : ""
+          }`}
+          onClick={() => handleButtonClick("")}
+        >
+          Todas
+        </button>
+        <button
+          className={`category-button ${
+            selectedCategory === "gratis" ? "active" : ""
+          }`}
+          onClick={() => handleButtonClick("gratis")}
+        >
+          Gratis
+        </button>
         {categories.map((category) => (
-          <option key={category} value={category}>
+          <button
+            key={category}
+            className={`category-button ${
+              selectedCategory === category ? "active" : ""
+            }`}
+            onClick={() => handleButtonClick(category)}
+          >
             {category}
-          </option>
+          </button>
         ))}
-      </select>
+      </div>
     </div>
   );
 };

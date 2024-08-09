@@ -28,7 +28,15 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    alert(`Realizando pago de ${totalPrice} € por ${totalItems} productos.`);
+    if (totalPrice === 0) {
+      alert(`Descargar gratis ${totalItems} productos.`);
+    } else {
+      alert(
+        `Realizando pago de ${totalPrice.toFixed(
+          2
+        )} € por ${totalItems} productos.`
+      );
+    }
   };
 
   return (
@@ -49,9 +57,10 @@ const CartPage = () => {
               <div className="game-details">
                 <h2>{game.name}</h2>
                 <p className="categoria">{game.categoria}</p>
-                <p className="precio">
-                  {game.precio === 0 ? "Gratis" : `${game.precio} €`}
-                </p>
+                {game.precio > 0 && (
+                  <p className="precio">{`${game.precio.toFixed(2)} €`}</p>
+                )}
+                {game.precio === 0 && <p className="precio">Gratis</p>}
                 <button
                   className="remove-from-cart-button"
                   onClick={() => removeFromCart(game._id)}
@@ -66,9 +75,13 @@ const CartPage = () => {
       {cartItems.length > 0 && (
         <div className="summary">
           <p>Total de productos: {totalItems}</p>
-          <p>Precio total: {totalPrice} €</p>
+          {totalPrice > 0 ? (
+            <p>Precio total: {totalPrice.toFixed(2)} €</p>
+          ) : (
+            <p>Descargar gratis</p>
+          )}
           <button className="checkout-button" onClick={handleCheckout}>
-            Realizar Pago
+            {totalPrice === 0 ? "Descargar" : "Pagar y descargar"}
           </button>
         </div>
       )}

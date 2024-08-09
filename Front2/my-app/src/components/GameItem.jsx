@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faCartPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
-import "../styles/ListGames.css";
+import "../styles/GameItem.css";
 
 // Función para añadir un juego al carrito en localStorage
 const addToCart = (game) => {
@@ -61,13 +61,13 @@ const GameItem = ({ game, onAddToCart }) => {
             >
               {added ? (
                 <>
-                  Juego añadido{" "}
-                  <FontAwesomeIcon icon={faCheck} className="icon" />
+                  <FontAwesomeIcon icon={faCheck} className="icon-check" />
+                  <span>Añadido al carro</span>
                 </>
               ) : (
                 <>
                   Añadir al carro{" "}
-                  <FontAwesomeIcon icon={faCartPlus} className="icon" />
+                  <FontAwesomeIcon icon={faCartPlus} className="icon-cart" />
                 </>
               )}
             </button>

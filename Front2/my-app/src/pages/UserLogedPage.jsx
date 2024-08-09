@@ -34,10 +34,17 @@ const UserLogedPage = () => {
         setGames(response.data);
         setFilteredGames(response.data);
 
-        const gameCategories = [
-          ...new Set(response.data.map((game) => game.categoria)),
-        ];
-        setCategories(gameCategories);
+        // Obtener categorías únicas y agregar "gratis" solo si no está presente
+        const gameCategories = response.data.map((game) =>
+          game.categoria.toLowerCase()
+        );
+        const uniqueCategories = [...new Set(gameCategories)];
+
+        if (!uniqueCategories.includes("gratis")) {
+          uniqueCategories.push("gratis");
+        }
+
+        setCategories(uniqueCategories);
       } catch (error) {
         setError("Error fetching games");
         console.error("Error fetching games:", error);
@@ -52,10 +59,17 @@ const UserLogedPage = () => {
   useEffect(() => {
     let filtered = games;
 
-    if (selectedCategory) {
-      filtered = filtered.filter((game) => game.categoria === selectedCategory);
+    // Filtrado por categoría
+    if (selectedCategory.toLowerCase() === "gratis") {
+      filtered = filtered.filter((game) => game.precio === 0);
+    } else if (selectedCategory) {
+      filtered = filtered.filter(
+        (game) =>
+          game.categoria.toLowerCase() === selectedCategory.toLowerCase()
+      );
     }
 
+    // Filtrado por término de búsqueda
     if (searchTerm) {
       filtered = filtered.filter((game) =>
         game.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -65,8 +79,8 @@ const UserLogedPage = () => {
     setFilteredGames(filtered);
   }, [selectedCategory, searchTerm, games]);
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
 
   const handleSearchChange = (event) => {
@@ -113,7 +127,14 @@ const UserLogedPage = () => {
         />
         <img src="/logo.png" alt="Logo" className="title-image-2" />
       </h1>
-      <h2>Bienvenido {userName}!</h2>
+      <div className="designer-offer-container">
+        <p>
+          Encuentra las mejoras ofertas en juegos clásicos y los mejores
+          estrenos{" "}
+        </p>{" "}
+        <img src="/Designer.jpeg" alt="Designer" className="designer-image" />
+      </div>
+      <h2>!Bienvenido {userName}!</h2>
       {error && <p>{error}</p>}
       <div className="user-filter-container">
         <div className="user-category-filter-custom">
@@ -134,7 +155,7 @@ const UserLogedPage = () => {
             <GameItem
               key={game._id}
               game={game}
-              onAddToCart={handleAddToCart} // Pasar la función como prop
+              onAddToCart={handleAddToCart}
             />
           ))
         ) : (

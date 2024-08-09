@@ -1,6 +1,10 @@
 .homepage-container {
   padding: 40px;
-  position: relaive;
+  position: relative;
+}
+
+.homepage-header {
+  position: relative;
 }
 
 .homepage-titulo {
@@ -31,11 +35,35 @@
   transform: rotate(-30deg);
 }
 
+.designer-offer-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+}
+
+.designer-offer-container p {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+  width: 160px;
+}
+
+.designer-image {
+  width: 100px;
+  height: auto;
+}
+
+.category-filter {
+  margin-right: 240px;
+  margin-bottom: 20px;
+}
+
 .filter-container {
   position: absolute;
   top: 107px;
   right: 20px;
-  background-color: #f8f9fa;
+  background-color: #9cb8d4;
   border: 1px solid #dee2e6;
   border-radius: 4px;
   padding: 16px 17px;
@@ -73,23 +101,6 @@
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.game-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  text-align: center;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.game-item a {
-  text-decoration: none;
-  color: inherit;
 }
 
 .image-container {
@@ -131,7 +142,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .filter-container {
@@ -161,49 +172,4 @@
   outline: none;
   border-color: #80bdff;
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-}
-
-.admin-button,
-.add-to-cart-button,
-.added-to-cart-button {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 10px;
-  margin-top: 10px;
-  background-color: #767777;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s; /* Añadido para suavizar el cambio de color */
-}
-
-.admin-button:hover {
-  background-color: #46c060;
-}
-
-.add-to-cart-button:hover {
-  background-color: #f89756;
-}
-
-.add-to-cart-button .icon {
-  margin-left: 8px;
-  width: 16px;
-  height: 16px;
-}
-
-.added-to-cart-button {
-  background-color: #555;
-  cursor: not-allowed;
-  /* Desactivar el efecto hover */
-}
-
-.added-to-cart-button:hover {
-  background-color: #555; /* No cambiar el color al pasar el ratón */
-}
-
-.added-to-cart-button .icon {
-  margin-left: 8px;
-  width: 16px;
-  height: 16px;
 }

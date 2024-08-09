@@ -65,7 +65,7 @@
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
 }
 
-.user-filter-container {
+.filter-container {
   margin-top: 8px;
   margin-bottom: 10px;
   display: flex;

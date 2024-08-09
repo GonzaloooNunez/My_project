@@ -19,10 +19,19 @@ const HomePage = () => {
         const response = await fetchGames();
         setGames(response.data);
         setFilteredGames(response.data);
-        const gameCategories = [
-          ...new Set(response.data.map((game) => game.categoria)),
-        ];
-        setCategories([...gameCategories, "gratis"]);
+
+        // Obtener categorías únicas
+        const gameCategories = response.data.map((game) =>
+          game.categoria.toLowerCase()
+        );
+        const uniqueCategories = [...new Set(gameCategories)];
+
+        // Asegurarse de que "gratis" está en las categorías
+        if (!uniqueCategories.includes("gratis")) {
+          uniqueCategories.push("gratis");
+        }
+
+        setCategories(uniqueCategories);
       } catch (error) {
         setError("Error fetching games");
         console.error("Error fetching games:", error);
@@ -34,11 +43,12 @@ const HomePage = () => {
   useEffect(() => {
     let updatedGames = games;
 
-    if (selectedCategory === "gratis") {
+    if (selectedCategory.toLowerCase() === "gratis") {
       updatedGames = updatedGames.filter((game) => game.precio === 0);
     } else if (selectedCategory) {
       updatedGames = updatedGames.filter(
-        (game) => game.categoria === selectedCategory
+        (game) =>
+          game.categoria.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
@@ -51,8 +61,8 @@ const HomePage = () => {
     setFilteredGames(updatedGames);
   }, [selectedCategory, searchTerm, games]);
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
 
   const handleSearchChange = (event) => {
@@ -61,18 +71,27 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      <h1 className="homepage-titulo">
-        <img
-          src="https://images.emojiterra.com/twitter/v13.1/512px/1f3ae.png"
-          alt="Game Controller"
-          className="title-image"
-        />
-        <img
-          src="/logo.png" // Ruta a la imagen del logo en el directorio public
-          alt="Logo"
-          className="title-image-2"
-        />
-      </h1>
+      <div className="homepage-header">
+        <h1 className="homepage-titulo">
+          <img
+            src="https://images.emojiterra.com/twitter/v13.1/512px/1f3ae.png"
+            alt="Game Controller"
+            className="title-image"
+          />
+          <img
+            src="/logo.png" 
+            alt="Logo"
+            className="title-image-2"
+          />
+        </h1>
+        <div className="designer-offer-container">
+          <p>
+            Encuentra las mejoras ofertas en juegos clásicos y los mejores
+            estrenos{" "}
+          </p>{" "}
+          <img src="/Designer.jpeg" alt="Designer" className="designer-image" />
+        </div>
+      </div>
       {error && <p>{error}</p>}
       <div className="filter-search-container">
         <CategoryFilter

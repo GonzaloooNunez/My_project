@@ -1,0 +1,41 @@
+.category-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centramos el contenido dentro del componente */
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 270px;
+}
+
+.filter-label {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #343a40;
+  text-align: center; /* Centramos el texto "Categoría" */
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center; /* Centramos los botones horizontalmente */
+}
+
+.category-button {
+  padding: 5px 15px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #495057;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category-button.active {
+  color: #495057;
+}
+
+.category-button:hover {
+  background-color: #f1f1f1;
+}
