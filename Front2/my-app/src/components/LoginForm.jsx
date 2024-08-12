@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../Api";
 import "../styles/LoginForm.css";
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -24,14 +24,11 @@ const LoginForm = () => {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
-        // Vaciar el carrito del localStorage
         localStorage.removeItem("cart");
 
-        if (user.role === "Admin") {
-          navigate(`/user-logged`);
-        } else {
-          navigate(`/user-logged`);
-        }
+        onLogin();
+
+        navigate(`/user-logged`);
       } else {
         setMessage("No se pudo obtener el ID del usuario.");
       }

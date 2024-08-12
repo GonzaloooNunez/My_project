@@ -11,8 +11,12 @@ const LogoutForm = ({ onLogout }) => {
 
     onLogout();
 
-    navigate("/");
-  }, []);
+    const timer = setTimeout(() => {
+      navigate("/");
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [navigate, onLogout]);
 
   return null;
 };

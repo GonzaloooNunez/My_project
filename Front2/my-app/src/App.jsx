@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
+import LoginForm from "./components/LoginForm";
 import LogoutForm from "./components/LogoutForm";
 import SignupPage from "./pages/SignupPage";
 import GameDetailPage from "./pages/GameDetailPage";
@@ -18,31 +18,28 @@ import "./styles/App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
+    setIsAuthenticated(!!token);
   }, []);
 
-  if (isAuthenticated === null) {
-    return <div>Loading...</div>;
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("user");
+    setIsAuthenticated(false);
+  };
 
   return (
     <Router>
       <nav>
         <div className="nav-left">
           {!isAuthenticated && (
-            <>
-              <Link to="/login" className="nav-link">
-                Iniciar sesión
-              </Link>
-            </>
+            <Link to="/login" className="nav-link">
+              Iniciar sesión
+            </Link>
           )}
         </div>
         <div className="nav-right">
@@ -65,10 +62,13 @@ function App() {
           ) : (
             <Route path="/" element={<HomePage />} />
           )}
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={<LoginForm onLogin={() => setIsAuthenticated(true)} />}
+          />
           <Route
             path="/logout"
-            element={<LogoutForm onLogout={() => setIsAuthenticated(false)} />}
+            element={<LogoutForm onLogout={handleLogout} />}
           />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/games/:gameId" element={<GameDetailPage />} />
