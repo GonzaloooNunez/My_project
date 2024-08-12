@@ -159,6 +159,7 @@ const GameDetailPage = () => {
       } catch (error) {
         setError("Error deleting comment");
         console.error("Error deleting comment:", error);
+        window.location.reload();
       }
     }
   };
