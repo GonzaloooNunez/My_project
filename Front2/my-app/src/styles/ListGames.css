@@ -7,6 +7,15 @@
   position: relative;
 }
 
+.zelda-image {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 200px;
+  height: 170px;
+  z-index: 1;
+}
+
 .homepage-titulo {
   color: #fff;
   font-size: 2.5em;
@@ -40,13 +49,14 @@
   top: 0;
   right: 0;
   text-align: center;
+  margin-left: 40px;
 }
 
 .designer-offer-container p {
   margin: 0;
   font-size: 1.2em;
   color: #333;
-  width: 160px;
+  width: 240px;
 }
 
 .designer-image {

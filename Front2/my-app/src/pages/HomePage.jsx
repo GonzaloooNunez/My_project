@@ -66,6 +66,11 @@ const HomePage = () => {
   return (
     <div className="homepage-container">
       <div className="homepage-header">
+        <img
+          src="/Zelda-ocarina.png" // Ruta a la imagen en la carpeta public
+          alt="Zelda Ocarina"
+          className="zelda-image"
+        />
         <h1 className="homepage-titulo">
           <img
             src="https://images.emojiterra.com/twitter/v13.1/512px/1f3ae.png"
