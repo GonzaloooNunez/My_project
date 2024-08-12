@@ -23,6 +23,6 @@ router.delete("/:id", isAdmin, remove);
 router.put("/:id", isAdmin, update);
 router.post("/:id/rate", isUser, addRating);
 router.post("/:id/comment", isUser, addComment);
-router.delete("/:id/comments/:commentId", isUser, deleteComment);
+router.delete("/:id/comments/:commentId", isUser, isAdmin, deleteComment);
 
 module.exports = router;

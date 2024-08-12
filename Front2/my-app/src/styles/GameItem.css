@@ -56,21 +56,6 @@
   margin-top: 10px;
 }
 
-.admin-button,
-.add-to-cart-button,
-.added-to-cart-button {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 10px;
-  margin-top: 10px;
-  background-color: #767777;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
 .admin-button:hover {
   background-color: #46c060;
 }

@@ -226,7 +226,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 150px;
+  width: 131px;
 }
 
 .add-to-cart-button:hover {
@@ -242,7 +242,6 @@
   background-color: #555;
 }
 
-/* Iconos */
 .add-to-cart-button .icon {
   margin-left: 0px;
   width: 16px;

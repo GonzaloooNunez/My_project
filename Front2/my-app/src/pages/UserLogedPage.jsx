@@ -34,15 +34,10 @@ const UserLogedPage = () => {
         setGames(response.data);
         setFilteredGames(response.data);
 
-        // Obtener categorías únicas y agregar "gratis" solo si no está presente
         const gameCategories = response.data.map((game) =>
           game.categoria.toLowerCase()
         );
         const uniqueCategories = [...new Set(gameCategories)];
-
-        if (!uniqueCategories.includes("gratis")) {
-          uniqueCategories.push("gratis");
-        }
 
         setCategories(uniqueCategories);
       } catch (error) {

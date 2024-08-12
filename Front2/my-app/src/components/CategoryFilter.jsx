@@ -6,6 +6,10 @@ const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
     onCategoryChange(category);
   };
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
     <div className="category-filter">
       <p className="filter-label">
@@ -36,7 +40,7 @@ const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
             }`}
             onClick={() => handleButtonClick(category)}
           >
-            {category}
+            {capitalizeFirstLetter(category)}
           </button>
         ))}
       </div>

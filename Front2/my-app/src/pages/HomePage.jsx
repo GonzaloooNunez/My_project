@@ -20,16 +20,10 @@ const HomePage = () => {
         setGames(response.data);
         setFilteredGames(response.data);
 
-        // Obtener categorías únicas
         const gameCategories = response.data.map((game) =>
           game.categoria.toLowerCase()
         );
         const uniqueCategories = [...new Set(gameCategories)];
-
-        // Asegurarse de que "gratis" está en las categorías
-        if (!uniqueCategories.includes("gratis")) {
-          uniqueCategories.push("gratis");
-        }
 
         setCategories(uniqueCategories);
       } catch (error) {
@@ -78,11 +72,7 @@ const HomePage = () => {
             alt="Game Controller"
             className="title-image"
           />
-          <img
-            src="/logo.png" 
-            alt="Logo"
-            className="title-image-2"
-          />
+          <img src="/logo.png" alt="Logo" className="title-image-2" />
         </h1>
         <div className="designer-offer-container">
           <p>
