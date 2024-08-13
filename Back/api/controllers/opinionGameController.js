@@ -1,4 +1,5 @@
 const Game = require("../models/Games");
+const Usuario = require("../models/Usuario");
 
 const addRating = async (req, res) => {
   const gameId = req.params.id;
@@ -73,12 +74,20 @@ const deleteComment = async (req, res) => {
       return res.status(404).json({ message: "Game not found" });
     }
 
-    const commentIndex = game.comments.findIndex(
-      (comment) =>
-        comment._id.toString() === commentId &&
-        comment.userId.toString() === userId
-    );
+    const user = await Usuario.findById(userId);
+    let commentIndex = -1;
 
+    if (user.role === "Admin") {
+      commentIndex = game.comments.findIndex(
+        (comment) => comment._id.toString() === commentId
+      );
+    } else {
+      commentIndex = game.comments.findIndex(
+        (comment) =>
+          comment._id.toString() === commentId &&
+          comment.userId.toString() === userId
+      );
+    }
     if (commentIndex === -1) {
       return res
         .status(403)

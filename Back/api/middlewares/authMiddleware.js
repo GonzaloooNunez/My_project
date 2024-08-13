@@ -21,12 +21,8 @@ const isLogged = (req, res) => {
 const isUser = (req, res, next) => {
   const user = isLogged(req, res);
 
-  if (!user) return;
-
-  if (user.role !== "User") {
-    return res.status(403).json({ message: "El usuario no tiene permisos" });
-  }
-
+  if (!user)
+    return res.status(403).json({ message: "El usuario no esta logeado" });
   req.user = user;
   next();
 };

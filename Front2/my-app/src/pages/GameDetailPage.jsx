@@ -122,13 +122,14 @@ const GameDetailPage = () => {
     }
     try {
       await addComment(gameId, { comment });
-      const newComment = {
-        userId: user._id,
-        comment,
-        userName: user.name || "Anónimo",
-        date: new Date().toISOString(),
-      };
-      setComments((prevComments) => [newComment, ...prevComments]);
+
+      const response = await fetchGameById(gameId);
+      console.log(response);
+      setComments(
+        response.data.comments.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        )
+      );
       setComment("");
     } catch (error) {
       setError("Error adding comment");
@@ -141,6 +142,7 @@ const GameDetailPage = () => {
   };
 
   const handleDeleteComment = async (commentId) => {
+    console.log(commentId);
     if (!user) {
       setError("You must be logged in to delete a comment.");
       return;
@@ -153,13 +155,20 @@ const GameDetailPage = () => {
     if (confirmDelete) {
       try {
         await deleteComment(gameId, commentId);
-        setComments((prevComments) =>
-          prevComments.filter((comment) => comment._id !== commentId)
+
+        console.log(gameId);
+
+        const response = await fetchGameById(gameId);
+        console.log(response);
+        setComments(
+          response.data.comments.sort(
+            (a, b) => new Date(b.date) - new Date(a.date)
+          )
         );
       } catch (error) {
         setError("Error deleting comment");
         console.error("Error deleting comment:", error);
-        window.location.reload();
+        //window.location.reload();
       }
     }
   };
